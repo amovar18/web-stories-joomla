@@ -1,70 +1,70 @@
 {
     "$schema": "https://developer.joomla.org/schemason-schema/web_assets.json",
-    "name": "com_foos",
+    "name": "com_webstories",
     "version": "1.0.0",
     "description": "Joomla CMS",
     "license": "GPL-2.0-or-later",
     "assets": [
       {
-        "name": "com_helloworld.vendors-edit-story",
+        "name": "com_webstories.vendors-edit-story",
         "type": "style",
-        "uri": "com_helloworld/vendors-edit-story.css"
+        "uri": "com_webstories/vendors-edit-story.css"
       },
       {
-        "name": "com_helloworld.vendors-edit-story-rtl",
+        "name": "com_webstories.vendors-edit-story-rtl",
         "type": "style",
-        "uri": "com_helloworld/vendors-edit-story-rtl.css"
+        "uri": "com_webstories/vendors-edit-story-rtl.css"
       },
       {
-        "name": "com_helloworld.edit-story",
+        "name": "com_webstories.edit-story",
         "type": "style",
-        "uri": "com_helloworld/edit-story.css"
+        "uri": "com_webstories/edit-story.css"
       },
       {
-        "name": "com_helloworld.edit-story-rtl",
+        "name": "com_webstories.edit-story-rtl",
         "type": "style",
-        "uri": "com_helloworld/edit-story-rtl.css"
+        "uri": "com_webstories/edit-story-rtl.css"
       },
       {
-        "name": "com_helloworld.stories-dashboard",
+        "name": "com_webstories.stories-dashboard",
         "type": "style",
-        "uri": "com_helloworld/stories-dashboard.css"
+        "uri": "com_webstories/stories-dashboard.css"
       },
       {
-        "name": "com_helloworld.stories-dashboard-rtl",
+        "name": "com_webstories.stories-dashboard-rtl",
         "type": "style",
-        "uri": "com_helloworld/stories-dashboard-rtl.css"
+        "uri": "com_webstories/stories-dashboard-rtl.css"
       },
       {
-        "name": "com_helloworld.webstories-playground",
+        "name": "com_webstories.webstories-playground",
         "type": "style",
-        "uri": "com_helloworld/webstories-playground.css"
+        "uri": "com_webstories/webstories-playground.css"
       },
       {
-        "name": "com_helloworld.webstories-playground-rtl",
+        "name": "com_webstories.webstories-playground-rtl",
         "type": "style",
-        "uri": "com_helloworld/webstories-playground-rtl.css"
+        "uri": "com_webstories/webstories-playground-rtl.css"
       },
       {
-        "name": "com_helloworld.story-editor",
+        "name": "com_webstories.story-editor",
         "type": "script",
-        "uri": "com_helloworld/edit-story.js",
+        "uri": "com_webstories/edit-story.js",
         "attributes": {
           "defer": true
         }
       },
       {
-        "name": "com_helloworld.hello",
+        "name": "com_webstories.hello",
         "type": "script",
-        "uri": "com_helloworld/hello.js",
+        "uri": "com_webstories/hello.js",
         "attributes": {
           "defer": true
         }
       },
       {
-        "name": "com_helloworld.vendor-edit-story",
+        "name": "com_webstories.vendor-edit-story",
         "type": "script",
-        "uri": "com_helloworld/vendors-edit-story-dcebf9424fd76d3d154b.js",
+        "uri": "com_webstories/vendors-edit-story-dcebf9424fd76d3d154b.js",
         "attributes": {
           "defer": true
         }

@@ -24,10 +24,7 @@
     this XML file is, the namespace must match (ignoring CamelCase). 
     -->
     <namespace path="src/">Google\Component\WebStories</namespace>
-    <files folder="plugin/" id="webstories" group="webservices" type="plugin">
-        <filename>webstories.php</file>
-        <filename>webstories.xml</file>
-    </files>  
+    
     <administration>
         <!-- The link that will appear in the Admin panel's "Components" menu -->
         <menu link="index.php?option=com_webstories">Web Stories</menu>
