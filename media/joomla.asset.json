@@ -1,0 +1,74 @@
+{
+    "$schema": "https://developer.joomla.org/schemason-schema/web_assets.json",
+    "name": "com_foos",
+    "version": "1.0.0",
+    "description": "Joomla CMS",
+    "license": "GPL-2.0-or-later",
+    "assets": [
+      {
+        "name": "com_helloworld.vendors-edit-story",
+        "type": "style",
+        "uri": "com_helloworld/vendors-edit-story.css"
+      },
+      {
+        "name": "com_helloworld.vendors-edit-story-rtl",
+        "type": "style",
+        "uri": "com_helloworld/vendors-edit-story-rtl.css"
+      },
+      {
+        "name": "com_helloworld.edit-story",
+        "type": "style",
+        "uri": "com_helloworld/edit-story.css"
+      },
+      {
+        "name": "com_helloworld.edit-story-rtl",
+        "type": "style",
+        "uri": "com_helloworld/edit-story-rtl.css"
+      },
+      {
+        "name": "com_helloworld.stories-dashboard",
+        "type": "style",
+        "uri": "com_helloworld/stories-dashboard.css"
+      },
+      {
+        "name": "com_helloworld.stories-dashboard-rtl",
+        "type": "style",
+        "uri": "com_helloworld/stories-dashboard-rtl.css"
+      },
+      {
+        "name": "com_helloworld.webstories-playground",
+        "type": "style",
+        "uri": "com_helloworld/webstories-playground.css"
+      },
+      {
+        "name": "com_helloworld.webstories-playground-rtl",
+        "type": "style",
+        "uri": "com_helloworld/webstories-playground-rtl.css"
+      },
+      {
+        "name": "com_helloworld.story-editor",
+        "type": "script",
+        "uri": "com_helloworld/edit-story.js",
+        "attributes": {
+          "defer": true
+        }
+      },
+      {
+        "name": "com_helloworld.hello",
+        "type": "script",
+        "uri": "com_helloworld/hello.js",
+        "attributes": {
+          "defer": true
+        }
+      },
+      {
+        "name": "com_helloworld.vendor-edit-story",
+        "type": "script",
+        "uri": "com_helloworld/vendors-edit-story-dcebf9424fd76d3d154b.js",
+        "attributes": {
+          "defer": true
+        }
+      }
+    ]
+  }
+  
