@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" group="webservices" method="upgrade">
-    <name>Web stories plugin</name>
+    <name>Web services- Web stories</name>
 	<author>Joomla! Project</author>
 	<creationDate>November 2005</creationDate>
 	<copyright>Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.</copyright>
