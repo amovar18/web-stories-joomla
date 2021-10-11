@@ -38,8 +38,7 @@
     </administration>
     <api>
         <files folder="api/">
-            <folder>Controllers</folder>
-            <folder>View</folder>
+            <folder>src</folder>
         </files>
     </api>
     <media folder="media" destination="com_webstories">

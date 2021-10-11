@@ -3,9 +3,9 @@ use Joomla\CMS\MVC\Controller\ApiController;
 
 class StoriesController extends ApiController 
 {
-    protected $contentType = 'webstories';
+    protected $contentType = 'stories';
 
-    protected $default_view = 'storyeditor';
+    protected $default_view = 'stories';
     protected function save($recordKey = null)
     {
         $data = (array) json_decode($this->input->json->getRaw(), true);
