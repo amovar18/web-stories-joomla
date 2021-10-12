@@ -15,6 +15,7 @@ class PlgWebservicesWebstories extends CMSPlugin
 			'webstories',
 			['component' => 'com_webstories']
 		);
+		$router->createCRUDRoutes( 'v1/webstories/save', 'webstories.save',['component'=>'com_webstories']);
 
 		
 	}
