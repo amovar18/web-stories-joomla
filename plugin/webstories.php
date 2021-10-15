@@ -9,14 +9,18 @@ class PlgWebservicesWebstories extends CMSPlugin
 {
     protected $autoloadLanguage = true;
     public function onBeforeApiRoute(&$router)
-	{
-		$router->createCRUDRoutes(
-			'v1/webstories/all',
-			'webstories',
-			['component' => 'com_webstories']
-		);
-		$router->createCRUDRoutes( 'v1/webstories/save', 'webstories.save',['component'=>'com_webstories']);
+    {
+        $router->createCRUDRoutes(
+            'v1/webstories/all',
+            'webstories',
+            ['component' => 'com_webstories']
+        );
+        $router->createCRUDRoutes(
+            'v1/webstories/save',
+            'webstories.saving',
+            ['component'=>'com_webstories']
+        );
 
-		
-	}
+        
+    }
 }

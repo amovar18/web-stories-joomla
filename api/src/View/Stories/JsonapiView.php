@@ -13,6 +13,7 @@ class JsonapiView extends BaseApiView
 		'modified_date',
 		'created_by',
 		'published',
+		'post_content_filtered',
 	];
 	
 	/**
@@ -26,5 +27,6 @@ class JsonapiView extends BaseApiView
 		'modified_date',
 		'created_by',
 		'published',
+		'post_content_filtered',
 	];
 }

@@ -10,23 +10,29 @@ class WebstoriesController extends ApiController
     protected $contentType = 'webstories';
 
     protected $default_view = 'stories';
-    protected function save($recordKey = null)
+    public function saving()
     {   
-        $data = (array) json_decode($this->input->json->getRaw(), true);
+        $data = (array)  json_decode($this->input->json->getRaw(), true);
+        $db = Factory::getDbo();
+        // Create a new query object.
+        $query = $db->getQuery(true);
 
-        foreach (FieldsHelper::getFields('com_weblinks.weblink') as $field)
-        {
-            if (isset($data[$field->name]))
-            {
-                !isset($data['com_fields']) && $data['com_fields'] = [];
+        // Insert columns.
+        $columns = array('id','markup','post_date','title','modified_date','created_by','published','post_content_filtered');
 
-                $data['com_fields'][$field->name] = $data[$field->name];
-                unset($data[$field->name]);
-            }
-        }
+        // Insert values.
+        $values = array($data['id'],$db->quote($data['markup']), $db->quote($data['post_date']), $db->quote($data['title']),$db->quote($data['modified_date']), $db->quote($data['created_by']), $data['published'], $db->quote($data['post_content_filtered']));
+        // Prepare the insert query.
+        $query
+            ->insert($db->quoteName('#__webstories'))
+            ->columns($db->quoteName($columns))
+            ->values(implode(',', $values));
 
-        $this->input->set('data', $data);
-
-        return parent::save($recordKey);
+        // // Set the query using our newly populated query object and execute it.
+        $db->setQuery($query);
+        $db->execute();
+        echo json_encode(['message' => $db->insertid()]);
+        exit;
+        
     }
 }
