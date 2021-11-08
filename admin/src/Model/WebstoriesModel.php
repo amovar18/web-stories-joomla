@@ -117,7 +117,39 @@ class WebstoriesModel extends ListModel
 
 		return $query;
 	}
+	/**
+	 * Method to get a single record.
+	 *
+	 * @param   integer  $pk  The id of the primary key.
+	 *
+	 * @return  mixed  Object on success, false on failure.
+	 *
+	 * @since  0.1.0
+	 */
+	public function getItem($pk = null)
+	{
+		$item = parent::getItem($pk);
 
+		// Load associated helloapi items
+		$assoc = Associations::isEnabled();
+
+		if ($assoc)
+		{
+			$item->associations = array();
+
+			if ($item->id != null)
+			{
+				$associations = Associations::getAssociations('com_webstories', '#__webstories', 'com_webstories.item', $item->id, 'id', null);
+
+				foreach ($associations as $tag => $association)
+				{
+					$item->associations[$tag] = $association->id;
+				}
+			}
+		}
+
+		return $item;
+	}
 	/**
 	 * Method to auto-populate the model state.
 	 *

@@ -19,8 +19,8 @@ $wa->useScript('com_webstories.story-editor');
 $wa->useScript('com_webstories.vendor-edit-story');  
 ?>
 <script type="text/javascript">
-      document.body.className += ' edit-story js';
-    </script>
+    document.body.className += ' edit-story js';
+</script>
 <div class="app">
     <h1 class="screen-reader-text hide-if-no-js">Web Stories Ad Creation Tool</h1>
         <div id="web-stories-editor" class="web-stories-editor-app-container hide-if-no-js">
@@ -33,4 +33,4 @@ $wa->useScript('com_webstories.vendor-edit-story');
             </div>
         </div>
     </div>
-<h1>Web Stories</h1>
+</div>

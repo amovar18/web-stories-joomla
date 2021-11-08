@@ -54,17 +54,9 @@
         }
       },
       {
-        "name": "com_webstories.hello",
-        "type": "script",
-        "uri": "com_webstories/hello.js",
-        "attributes": {
-          "defer": true
-        }
-      },
-      {
         "name": "com_webstories.vendor-edit-story",
         "type": "script",
-        "uri": "com_webstories/vendors-edit-story-dcebf9424fd76d3d154b.js",
+        "uri": "com_webstories/vendors-edit-story-9314eade373a3cc7f4ae.js",
         "attributes": {
           "defer": true
         }

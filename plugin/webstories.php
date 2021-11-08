@@ -11,7 +11,7 @@ class PlgWebservicesWebstories extends CMSPlugin
     public function onBeforeApiRoute(&$router)
     {
         $router->createCRUDRoutes(
-            'v1/webstories/all',
+            'v1/webstories',
             'webstories',
             ['component' => 'com_webstories']
         );
@@ -20,7 +20,21 @@ class PlgWebservicesWebstories extends CMSPlugin
             'webstories.saving',
             ['component'=>'com_webstories']
         );
-
+        $router->createCRUDRoutes(
+            'v1/webstories/update',
+            'webstories.update',
+            ['component'=>'com_webstories']
+        );
+        $router->createCRUDRoutes(
+            'v1/webstories/delete/:id',
+            'webstories.delet',
+            ['component'=>'com_webstories','id' => '(\d+)'],
+        );
+        $routes = [
+            new Route(['GET'], 'v1/webstories/:id', 'webstories', ['id' => '(\d+)']),
+            new Route(['DELETE'], 'v1/webstories/:id', 'webstories', ['id' => '(\d+)'])
+        ];
+        $router->addRoutes($routes);
         
     }
 }
