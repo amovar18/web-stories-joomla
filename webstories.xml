@@ -24,6 +24,10 @@
     this XML file is, the namespace must match (ignoring CamelCase). 
     -->
     <namespace path="src/">Google\Component\WebStories</namespace>
+    <files folder="site/">
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
     <administration>
         <!-- The link that will appear in the Admin panel's "Components" menu -->
         <menu link="index.php?option=com_webstories">Web Stories</menu>
@@ -49,7 +53,6 @@
     <media folder="media" destination="com_webstories">
         <folder>css</folder>
         <folder>js</folder>
-        <folder>images</folder>
         <filename>joomla.asset.json</filename>
     </media>
 </extension>

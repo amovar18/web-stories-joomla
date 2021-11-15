@@ -19,16 +19,4 @@ $wa->useScript('com_webstories.vendor-edit-story');
 <script type="text/javascript">
     document.body.className += ' edit-story js';
 </script>
-<div class="app">
-    <h1 class="screen-reader-text hide-if-no-js">Web Stories Ad Creation Tool</h1>
-        <div id="web-stories-editor" class="web-stories-editor-app-container hide-if-no-js">
-            <h1 class="loading-message align-center">Please wait...</h1>
-        </div>
-        <div class="hide-if-js web-stories-wp-no-js">
-            <h1 class="web-stories-heading-inline">Web Stories</h1>
-            <div class="web-stories-notice-no-js">
-                <p>Web Stories Ad Creation Tool requires JavaScript. Please enable JavaScript in your browser settings.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<h2>Edit Story</h2>

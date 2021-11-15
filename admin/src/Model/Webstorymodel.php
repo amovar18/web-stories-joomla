@@ -71,8 +71,33 @@ class WebstoryModel extends AdminModel
             ->from($db->quoteName('#__webstories'))
             ->where($db->quoteName('id') . '=' . $story_id);
             $db->setQuery($query);
-        $item = $db->loadObjectList();
-        echo json_encode($item);
+        $item = $db->loadAssoc();
+        $story_data = json_decode($item['post_content_filtered']);
+        echo json_encode([
+            'title'=>[
+                'raw'=>$item['title'],
+            ],
+            'status'=>$item['published'] === 1 ? 'published' : 'draft',
+            'slug'=>'',
+            'date'=>$item['post_date'],
+            'modified'=>$item['modified_date'],
+            'excerpt'=>[
+                'raw'=>''
+            ],
+            'story_data'=>$story_data,
+            'link' => '',
+            'preview_link'=> '',
+            'edit_link'=> '',
+            'embed_post_link'=> '',
+            'featured_media'=> '',
+            'author'=>$item['created_by'],
+            'lock_user'=> '',
+            'featured_media'=> '',
+            'publisher_logo'=> '',
+            'taxonomies'=>[],
+            'terms'=>[],
+            'style_presets'=>[],
+        ]);
         exit;
     }
     /**

@@ -16,7 +16,7 @@ class WebstoriesController extends ApiController
         $db = Factory::getDbo();
         // Create a new query object.
         $query = $db->getQuery(true);
-
+        
         // Insert columns.
         $columns = array('markup','post_date','title','modified_date','created_by','published','post_content_filtered');
         $json = json_encode($data['post_content_filtered']);
@@ -31,7 +31,16 @@ class WebstoriesController extends ApiController
         // // Set the query using our newly populated query object and execute it.
         $db->setQuery($query);
         $db->execute();
-        echo json_encode(['storyId' => $db->insertid()]);
+        echo json_encode([
+            'storyId' => $db->insertid(),
+            'status' => 'publish',
+            'slug' => '',
+            'link' => '',
+            'preview_link'=> '',
+            'edit_link'=> '',
+            'embed_post_link'=> '',
+            'featured_media'=> '',
+        ]);
         exit;
         
     }

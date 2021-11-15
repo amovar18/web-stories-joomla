@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="plugin" version="3.7.0" group="fields" method="upgrade">
+    <name>plg_fields_webstories</name>
+    <author>CMSEnergizer.com</author>
+    <creationDate>March 2016</creationDate>
+    <copyright>Copyright (C) 2010 - 2017 CMSEnergizer.com. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>mail@cmsenergizer.com</authorEmail>
+    <authorUrl>www.cmsenergizer.com</authorUrl>
+    <version>1.0</version>
+    <description>PLG_FIELDS_WEBSTORIES</description>
+    <files>
+        <filename plugin="webstories">webstories.php</filename>
+        <folder>params</folder>
+        <folder>tmpl</folder>
+        <folder>fields</folder>
+    </files>
+</extension>

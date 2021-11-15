@@ -8,47 +8,17 @@
       {
         "name": "com_webstories.vendors-edit-story",
         "type": "style",
-        "uri": "com_webstories/vendors-edit-story.css"
+        "uri": "com_webstories/vendors-joomla-story-editor.css"
       },
       {
         "name": "com_webstories.vendors-edit-story-rtl",
         "type": "style",
-        "uri": "com_webstories/vendors-edit-story-rtl.css"
-      },
-      {
-        "name": "com_webstories.edit-story",
-        "type": "style",
-        "uri": "com_webstories/edit-story.css"
-      },
-      {
-        "name": "com_webstories.edit-story-rtl",
-        "type": "style",
-        "uri": "com_webstories/edit-story-rtl.css"
-      },
-      {
-        "name": "com_webstories.stories-dashboard",
-        "type": "style",
-        "uri": "com_webstories/stories-dashboard.css"
-      },
-      {
-        "name": "com_webstories.stories-dashboard-rtl",
-        "type": "style",
-        "uri": "com_webstories/stories-dashboard-rtl.css"
-      },
-      {
-        "name": "com_webstories.webstories-playground",
-        "type": "style",
-        "uri": "com_webstories/webstories-playground.css"
-      },
-      {
-        "name": "com_webstories.webstories-playground-rtl",
-        "type": "style",
-        "uri": "com_webstories/webstories-playground-rtl.css"
+        "uri": "com_webstories/vendors-joomla-story-editor-rtl.css"
       },
       {
         "name": "com_webstories.story-editor",
         "type": "script",
-        "uri": "com_webstories/edit-story.js",
+        "uri": "com_webstories/joomla-story-editor.js",
         "attributes": {
           "defer": true
         }
@@ -56,7 +26,7 @@
       {
         "name": "com_webstories.vendor-edit-story",
         "type": "script",
-        "uri": "com_webstories/vendors-edit-story-9314eade373a3cc7f4ae.js",
+        "uri": "com_webstories/vendors-joomla-story-editor.js",
         "attributes": {
           "defer": true
         }

@@ -1,2 +1,8 @@
-/media/dist/
+/media/css/
+/media/images/
+/media/js/
+/media/preview/
+/media/manifest.json
+/media/index.html
+/media/sw.js
 /media/web-stories-ad-creation-tool/
