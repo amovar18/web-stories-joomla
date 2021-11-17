@@ -9,14 +9,23 @@
  */
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
-use Joomla\CMS\WebAsset\WebAssetManager;
-$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->useStyle('com_webstories.vendors-edit-story-rtl');
-$wa->useStyle('com_webstories.vendors-edit-story');
-$wa->useScript('com_webstories.story-editor');
-$wa->useScript('com_webstories.vendor-edit-story');  
+if(!isset($_GET['id'])&&empty($_GET['id'])){
+    return;
+}
+$db = Factory::getDbo();
+$query = $db->getQuery(true);
+$query
+    ->select($db->quoteName('markup'))
+    ->from($db->quoteName('#__webstories'))
+    ->where($db->quoteName('id') . '=' . $_GET['id']);
+$db->setQuery($query);
+$item = $db->loadAssoc();
+
 ?>
 <script type="text/javascript">
-    document.body.className += ' edit-story js';
+    const header = document.getElementsByClassName('header container-header full-width');
+    const footer = document.getElementsByClassName('container-footer footer full-width');
+    header[0].remove();
+    footer[0].remove();
 </script>
-<h2>Edit Story</h2>
+<?php var_dump($item['markup']);?>

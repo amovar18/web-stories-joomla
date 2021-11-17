@@ -26,9 +26,14 @@ class PlgWebservicesWebstories extends CMSPlugin
             ['component'=>'com_webstories']
         );
         $router->createCRUDRoutes(
-            'v1/webstories/delete/:id',
-            'webstories.delet',
-            ['component'=>'com_webstories','id' => '(\d+)'],
+            'v1/webstories/saveimage',
+            'webstories.save_image',
+            ['component'=>'com_webstories'],
+        );
+        $router->createCRUDRoutes(
+            'v1/webstories/getimages',
+            'webstories.getimages',
+            ['component' => 'com_webstories'],
         );
         $routes = [
             new Route(['GET'], 'v1/webstories/:id', 'webstories', ['id' => '(\d+)']),

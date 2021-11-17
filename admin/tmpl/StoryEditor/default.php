@@ -10,25 +10,64 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\WebAsset\WebAssetManager;
+use Joomla\CMS\HTML\HTMLHelper;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->useStyle('com_webstories.vendors-edit-story-rtl');
 $wa->useStyle('com_webstories.vendors-edit-story');
 $wa->useScript('com_webstories.story-editor');
 $wa->useScript('com_webstories.vendor-edit-story');  
+echo '<script type="text/javascript">
+    var webStoriesEditorSettings = {
+        "api":{
+            "updateLink":"http://localhost:88/joomla-cms/api/index.php/v1/webstories/",
+            "publishLink":"http://localhost:88/joomla-cms/api/index.php/v1/webstories/save",
+        },
+        "storyId": 15,
+        "allowedAudioTypes":["aac","m4a","m4b","mp3","oga","ogg","wav"],
+        "allowedAudioMimeTypes":["audio/mpeg","audio/aac","audio/wav","audio/ogg"],
+        "allowedFileTypes":["gif","jpe","jpeg","jpg","m4v","mp4","png","svg","svgz","webm","webp"],
+        "allowedImageFileTypes":["gif","jpe","jpeg","jpg","png","webp"],
+        "allowedImageMimeTypes":["image/webp","image/png","image/jpeg","image/gif"],
+        "allowedMimeTypes":{
+            "image": ["image/webp","image/png","image/jpeg","image/gif","image/svg+xml"],
+            "audio": [],
+            "video": ["video/mp4","video/webm"]
+        },
+        "allowedTranscodableMimeTypes":["video/3gpp","video/3gpp2","video/MP2T","video/mp4","video/mpeg","video/ogg","video/quicktime","video/webm","video/x-flv","video/x-h261",
+            "video/x-h263","video/x-m4v","video/x-matroska","video/x-mjpeg","video/x-ms-asf","video/x-msvideo","video/x-nut"],
+        "autoSaveInterval": 60,
+        "cdnURL": "https://wp.stories.google/static/main/",
+        "ffmpegCoreUrl": "https://wp.stories.google/static/main/js/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js"
+
+    }
+</script>';
+echo HTMLHelper::_(
+    'bootstrap.renderModal',
+    'mediaModal',
+    [
+        'backdrop'    => 'static',
+        'title' => 'Upload Media',
+        'footer' => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-button">Close</button>'
+    ],
+    '
+        <form>
+            <div style="display:flex;flex-direction:column">
+                <div class="input-group">
+                    <input type="file" onchange="embedPreview(this)" class="form-control" id="file-input-button" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                    <button class="btn btn-outline-secondary" onclick="submitImages()" type="button" id="successButton">Upload</button>
+                </div>
+                <div id="carousel">
+                </div>
+            </div>
+        </form>
+    ',
+);
 ?>
 <script type="text/javascript">
     document.body.className += ' edit-story js';
 </script>
 <div class="app">
-    <h1 class="screen-reader-text hide-if-no-js">Web Stories Ad Creation Tool</h1>
         <div id="web-stories-editor" class="web-stories-editor-app-container hide-if-no-js">
             <h1 class="loading-message align-center">Please wait...</h1>
         </div>
-        <div class="hide-if-js web-stories-wp-no-js">
-            <h1 class="web-stories-heading-inline">Web Stories</h1>
-            <div class="web-stories-notice-no-js">
-                <p>Web Stories Ad Creation Tool requires JavaScript. Please enable JavaScript in your browser settings.</p>
-            </div>
-        </div>
-    </div>
 </div>
