@@ -1,0 +1,36 @@
+{
+    "$schema": "https://developer.joomla.org/schemason-schema/web_assets.json",
+    "name": "com_webstories",
+    "version": "1.0.0",
+    "description": "Joomla CMS",
+    "license": "GPL-2.0-or-later",
+    "assets": [
+      {
+        "name": "com_webstories.vendors-edit-story",
+        "type": "style",
+        "uri": "com_webstories/vendors-joomla-story-editor.css"
+      },
+      {
+        "name": "com_webstories.vendors-edit-story-rtl",
+        "type": "style",
+        "uri": "com_webstories/vendors-joomla-story-editor-rtl.css"
+      },
+      {
+        "name": "com_webstories.story-editor",
+        "type": "script",
+        "uri": "com_webstories/joomla-story-editor.js",
+        "attributes": {
+          "defer": true
+        }
+      },
+      {
+        "name": "com_webstories.vendor-edit-story",
+        "type": "script",
+        "uri": "com_webstories/vendors-joomla-story-editor.js",
+        "attributes": {
+          "defer": true
+        }
+      }
+    ]
+  }
+  

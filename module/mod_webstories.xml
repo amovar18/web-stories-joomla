@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>Webstories</name>
+    <author>John Doe</author>
+    <version>1.0.0</version>
+    <description>Module to embed webstories</description>
+    <files>
+        <filename>mod_webstories.xml</filename>
+        <filename module="mod_webstories">mod_webstories.php</filename>
+        <folder>tmpl</folder>
+    </files>
+    <config>
+    </config>
+</extension>
