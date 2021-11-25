@@ -52,25 +52,4 @@ class WebstoryModel extends AdminModel
     {
         return parent::getTable('webstories', $prefix, $options);
     }
-    /**
-     * Method to delete one or more records.
-     *
-     * @param array $pks An array of record primary keys.
-     *
-     * @return boolean  True if successful, false if an error occurs.
-     *
-     * @since 1.6
-     */
-    public function delete(&$pks)
-    {
-        $story_id = $pks;
-        $db =  Factory::getDBO();   
-        $query = $db->getQuery(true);
-        $query->delete($db->quoteName('#__webstories'));             
-        $query->where($db->quoteName('id').'='.$story_id);             
-        $db->setQuery($query);
-        $result = $db->execute(); 
-        echo json_encode($result);
-        exit;
-    }
 }

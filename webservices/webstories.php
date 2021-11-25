@@ -60,10 +60,11 @@ class PlgWebservicesWebstories extends CMSPlugin
             'webstories.getSingle',
             ['component' => 'com_webstories'],
         );
-        $routes = [
-            new Route(['DELETE'], 'v1/webstories/:id', 'webstories', ['id' => '(\d+)'])
-        ];
-        $router->addRoutes($routes);
+        $router->createCRUDRoutes(
+            'v1/webstories/delete',
+            'webstories.deleteSingle',
+            ['component' => 'com_webstories'],
+        );
         
     }
 }

@@ -273,10 +273,26 @@ class WebstoriesController extends ApiController
       $query = $db->getQuery(true);
       // Insert columns.
       
-      $query = "UPDATE `#__webstories` SET `title`= '".$data["name"]."' WHERE id=".$data["id"];
+      $query = "UPDATE `#__webstories` SET `title`= '".$data["title"]."' WHERE id=".$data["id"];
       $db->setQuery($query);
       $db->execute();
-      echo json_encode($data);
+      $query = "select * from #__webstories where id = ".$data['id'];
+      $db->setQuery($query);
+      $item = $db->loadAssoc();
+      $db->execute();
+      $single_story=array(
+        'id'=>$item['id'],
+        'status'=>$item['published'] === 1 ? 'published' : 'draft',
+        'title'=>$item['title'],
+        'created'=>$item['post_date'],
+        'createdGmt'=>$item['modified_date'],
+        'author'=>[
+          'name'=>$item['created_by'],
+          'id'=>1,
+        ],
+        'featuredMediaUrl'=>'',
+      );
+      echo json_encode($single_story);
       exit;
   }
   public function duplicate()
@@ -342,6 +358,14 @@ class WebstoriesController extends ApiController
                 'name'=>$item['created_by'],
                 'id'=>1,
               ],
+              'capabilities'=>[
+                'hasEditAction'=>true,
+                'hasDeleteAction'=>true
+              ],
+              'modified'=>$item['modified_date'],
+              'modifiedGmt'=>$item['modified_date'],
+              'editStoryLink'=>'/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$item['id'],
+              'previewLink'=> 'http://localhost:88/joomla-cms/index.php?option=com_webstories&view=storyeditor&id='.$item['id'],
               'featuredMediaUrl'=>'',
             );
             $stories[$item['id']]= $single_story;
@@ -382,6 +406,9 @@ class WebstoriesController extends ApiController
               'title'=>[
                   'raw'=>$item['title'],
               ],
+              'excerpt'=>[
+                'raw'=>''
+              ],
               'status'=>$item['published'] === 1 ? 'published' : 'draft',
               'slug'=>'',
               'date'=>$item['post_date'],
@@ -403,5 +430,27 @@ class WebstoriesController extends ApiController
           ]);
           exit;
         }
+    }
+        /**
+     * Method to delete one or more records.
+     *
+     * @param array $pks An array of record primary keys.
+     *
+     * @return boolean  True if successful, false if an error occurs.
+     *
+     * @since 1.6
+     */
+    public function deleteSingle()
+    {
+        $data = (array)  json_decode($this->input->json->getRaw(), true);
+        $story_id = $data['id'];
+        $db =  Factory::getDBO();   
+        $query = $db->getQuery(true);
+        $query->delete($db->quoteName('#__webstories'));             
+        $query->where($db->quoteName('id').'='.$story_id);             
+        $db->setQuery($query);
+        $result = $db->execute(); 
+        echo json_encode($result);
+        exit;
     }
 }
