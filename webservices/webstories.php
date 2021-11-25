@@ -12,7 +12,7 @@ class PlgWebservicesWebstories extends CMSPlugin
     {
         $router->createCRUDRoutes(
             'v1/webstories',
-            'webstories',
+            'webstories.get_all_stories',
             ['component' => 'com_webstories']
         );
         $router->createCRUDRoutes(
@@ -46,7 +46,7 @@ class PlgWebservicesWebstories extends CMSPlugin
             ['component' => 'com_webstories'],
         );
         $router->createCRUDRoutes(
-            'v1/webstories/duplicate/:id',
+            'v1/webstories/duplicate',
             'webstories.duplicate',
             ['component' => 'com_webstories'],
         );
@@ -55,8 +55,12 @@ class PlgWebservicesWebstories extends CMSPlugin
             'webstories.rename',
             ['component' => 'com_webstories'],
         );
+        $router->createCRUDRoutes(
+            'v1/webstories/getSingle',
+            'webstories.getSingle',
+            ['component' => 'com_webstories'],
+        );
         $routes = [
-            new Route(['GET'], 'v1/webstories/:id', 'webstories', ['id' => '(\d+)']),
             new Route(['DELETE'], 'v1/webstories/:id', 'webstories', ['id' => '(\d+)'])
         ];
         $router->addRoutes($routes);

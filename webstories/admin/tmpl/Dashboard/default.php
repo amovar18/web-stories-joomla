@@ -12,6 +12,14 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Joomla\CMS\WebAsset\WebAssetManager;
+
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+$wa->useStyle('com_webstories.joomla-story-editor');
+$wa->useStyle('com_webstories.joomla-story-editor-rtl');
+$wa->useScript('com_webstories.vendor-shared-js');
+$wa->useScript('com_webstories.resize-observer');
+$wa->useScript('com_webstories.dashboard');
 $db = Factory::getDbo();
 $query = $db->getQuery(true);
 $query
@@ -21,7 +29,15 @@ $db->setQuery($query);
 $items = $db->loadObjectList();
 ?>
 <h1> Dashboard</h1>
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById('wrapper').classList.replace('open', 'closed');
+        document.getElementById('subhead-container').remove();
+        document.getElementById('content').style.padding='0';
+    }
+</script>
 <script type='text/javascript'>
+    document.body.className += ' js web-story_page_stories-dashboard';
     function deleteStory(id){
         var xhr1 = new XMLHttpRequest();
         xhr1.open('DELETE', "http://localhost:88/joomla-cms/api/index.php/v1/webstories/"+id, true);
@@ -34,33 +50,11 @@ $items = $db->loadObjectList();
         xhr1.send();
     }
 </script>
-<div style="display:flex; flex-direction:column">
-<?php 
-    foreach ($items as $item) {
-        echo "<div>";
-        echo HTMLHelper::_(
-            'link',
-            Route::_('index.php?option=com_webstories&view=storyeditor&id='.$item->id),
-            Text::_('Go to webstory'.$item->id),
-            array('class' => 'alert-link')
-        );
-        echo "
-        
-        <button class='btn btn-primary' onclick='deleteStory(".$item->id.")'>
-            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
-                <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
-            </svg>
-        </button>";
-        echo "<div>";
-        echo '<br>';
-    }
-    echo HTMLHelper::_(
-        'link',
-        Route::_('index.php?option=com_webstories&view=storyeditor&create_new=yes'),
-        Text::_('Create New Story'),
-        array('class' => 'alert-link')
-    );
-    echo '<br>';
-?>
+<div class="app">
+<div class="web-stories-wp">
+    <h1 class="screen-reader-text hide-if-no-js">Web Stories</h1>
+    <div id="web-stories-dashboard" class="web-stories-dashboard-app-container hide-if-no-js">
+    </div>
+</div>
 </div>
 

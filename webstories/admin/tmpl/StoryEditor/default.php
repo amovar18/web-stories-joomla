@@ -15,10 +15,11 @@ use Joomla\CMS\WebAsset\WebAssetManager;
 use Joomla\CMS\HTML\HTMLHelper;
 
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->useStyle('com_webstories.vendors-edit-story-rtl');
-$wa->useStyle('com_webstories.vendors-edit-story');
-$wa->useScript('com_webstories.story-editor');
-$wa->useScript('com_webstories.vendor-edit-story');
+$wa->useStyle('com_webstories.joomla-story-editor-rtl');
+$wa->useStyle('com_webstories.joomla-story-editor');
+$wa->useScript('com_webstories.story-editor-js');
+$wa->useScript('com_webstories.vendor-shared-js');
+$wa->useScript('com_webstories.resize-observer');
 $id = $_GET['id'];
 echo '<script type="text/javascript">
     var webStoriesEditorSettings = {"config":{
@@ -26,7 +27,7 @@ echo '<script type="text/javascript">
             "saveLink":"../api/index.php/v1/webstories/update",
             "getMedia":"../api/index.php/v1/webstories/getimages",
             "saveMedia":"../api/index.php/v1/webstories/saveimage",
-            "getStoryById":"../api/index.php/v1/webstories/",
+            "getStoryById":"../api/index.php/v1/webstories/getSingle",
         },
         "storyId": '.$id.',
         "allowedAudioTypes":["aac","m4a","m4b","mp3","oga","ogg","wav"],

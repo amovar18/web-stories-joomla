@@ -19,7 +19,7 @@ class WebstoriesController extends ApiController
         $json = $db->quote(json_encode($data['post_content_filtered']));
         // Insert columns.
         
-        $query = "UPDATE `#__` SET `markup`=".json_encode($data['markup']).",`title`='".$data['title']."',`modified_date`='".$data['modified_date']."',`created_by`='".$data['created_by']."',`published`='".$data['published']."', `post_content_filtered`=".$json." WHERE id=".$data["id"];
+        $query = "UPDATE `#__webstories` SET `markup`=".json_encode($data['markup']).",`title`='".$data['title']."',`modified_date`='".$data['modified_date']."',`created_by`='".$data['created_by']."',`published`='".$data['published']."', `post_content_filtered`=".$json." WHERE id=".$data["id"];
         
 
         // // Set the query using our newly populated query object and execute it.
@@ -111,7 +111,8 @@ class WebstoriesController extends ApiController
         echo json_encode($response);
         exit;
     }
-    public function getall(){
+    public function getall()
+    {
       if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
             $url = "https://";   
         else  
@@ -264,21 +265,23 @@ class WebstoriesController extends ApiController
         ],
       ];
     }
-    public function rename(){
+    public function rename()
+    {
       $data = (array)  json_decode($this->input->json->getRaw(), true);
       $db = Factory::getDbo();
       // Create a new query object.
       $query = $db->getQuery(true);
       // Insert columns.
       
-      $query = "UPDATE `#__` SET `title`= '".$data["name"]."' WHERE id=".$data["id"];
+      $query = "UPDATE `#__webstories` SET `title`= '".$data["name"]."' WHERE id=".$data["id"];
       $db->setQuery($query);
       $db->execute();
       echo json_encode($data);
       exit;
   }
-  public function duplicate(){
-    $data = (array)  json_decode($this->input->json->getRaw(), true);
+  public function duplicate()
+  {
+      $data = (array)  json_decode($this->input->json->getRaw(), true);
       $story_id = $data['id'];
       $db = Factory::getDbo();
       $query = $db->getQuery(true);
@@ -286,16 +289,119 @@ class WebstoriesController extends ApiController
           ->select($db->quoteName(array('id','markup','post_date','title','modified_date','created_by','published','post_content_filtered')))
           ->from($db->quoteName('#__webstories'))
           ->where($db->quoteName('id') . '=' . $story_id);
-          $db->setQuery($query);
+      $db->setQuery($query);
       $item = $db->loadAssoc();
       $story_data = !empty($item['post_content_filtered']) ? json_decode($item['post_content_filtered']) : [];
-      // Insert columns.
-      
-      $query = "insert into #__ (markup,post_content_filtered,published,title, created_by) values (".json_encode($item['markup']).",".json_encode($item['post_content_filtered']).",0,'".$item['title']."(Copy)','".$item['created_by']."')";
+      // Insert duplicate story into table.
+      $query = "insert into #__webstories (markup,post_content_filtered,published,title, created_by) values (".json_encode($item['markup']).",".json_encode($item['post_content_filtered']).",0,'".$item['title']."(Copy)','".$item['created_by']."')";
       $db->setQuery($query);
       $db->execute();
-      echo json_encode(true);
+      $single_story=array(
+        'id'=>$item['id'],
+        'status'=>'draft',
+        'title'=>$item['title'].'(Copy)',
+        'created'=>date('Y-m-d H:i:s'),
+        'createdGmt'=>date('Y-m-d H:i:s'),
+        'author'=>[
+          'name'=>$item['created_by'],
+          'id'=>1,
+        ],
+        'featuredMediaUrl'=>'',
+      );
+      echo json_encode($single_story);
       exit;
   }
-
+  public function get_all_stories()
+  {
+        $stories_page = 20;
+        $data = (array)  json_decode($this->input->json->getRaw(), true);
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true);
+        $query
+            ->select($db->quoteName(array('id','post_date','title','modified_date','created_by','published')))
+            ->from($db->quoteName('#__webstories'))
+            ->setLimit($stories_page, $story_page*(int)$data['page']-1);
+        $db->setQuery($query);
+        $items = $db->loadAssocList();
+        $db->setQuery($query);
+        $db->execute();
+        $response=[];
+        $stories=[];
+        $fetchedStoryIds=[];
+        $published=0;
+        $draft=0;
+        foreach ($items as $item ) {
+          if((int)$item['published']!==-1){
+            $single_story=array(
+              'id'=>$item['id'],
+              'status'=>$item['published']===1 ? 'published' : 'draft',
+              'title'=>$item['title'],
+              'created'=>$item['post_date'],
+              'createdGmt'=>$item['post_date'],
+              'author'=>[
+                'name'=>$item['created_by'],
+                'id'=>1,
+              ],
+              'featuredMediaUrl'=>'',
+            );
+            $stories[$item['id']]= $single_story;
+            array_push($fetchedStoryIds, $item['id']);
+            $item['published']===1 ? $published++ : $draft++;
+          }
+        }
+        $totalStoriesByStatus =[ 'all'=>$published+$draft,'published'=>$published];
+        $response['totalStoriesByStatus']= $totalStoriesByStatus;
+        $response['stories']=$stories;
+        $response['fetchedStoryIds']=$fetchedStoryIds;
+        echo json_encode($response);
+        exit;
+  }
+  /**
+     * Method to get a single record.
+     *
+     * @param integer $pk The id of the primary key.
+     *
+     * @return mixed  Object on success, false on failure.
+     *
+     * @since 0.1.0
+     */
+    public function getSingle()
+    {
+        if(isset($_GET['id']) && !empty($_GET['id']) ){
+          $story_id = $_GET['id']||$id;
+          $db = Factory::getDbo();
+          $query = $db->getQuery(true);
+          $query
+              ->select($db->quoteName(array('id','markup','post_date','title','modified_date','created_by','published','post_content_filtered')))
+              ->from($db->quoteName('#__webstories'))
+              ->where($db->quoteName('id') . '=' . $story_id);
+          $db->setQuery($query);
+          $item = $db->loadAssoc();
+          $story_data = !empty($item['post_content_filtered']) ? json_decode($item['post_content_filtered']) : [];
+          echo json_encode([
+              'title'=>[
+                  'raw'=>$item['title'],
+              ],
+              'status'=>$item['published'] === 1 ? 'published' : 'draft',
+              'slug'=>'',
+              'date'=>$item['post_date'],
+              'modified'=>$item['modified_date'],
+              'story_data'=>$story_data,
+              'link' => '',
+              'preview_link'=> 'http://localhost:88/joomla-cms/index.php?option=com_webstories&view=storyeditor&id='.$story_id,
+              'edit_link'=> '/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$story_id,
+              'embed_post_link'=> '',
+              'featured_media'=> '',
+              'author'=>$item['created_by'],
+              'lock_user'=> '',
+              'featured_media'=> '',
+              'publisher_logo'=> '',
+              'taxonomies'=>[],
+              'terms'=>[],
+              'style_presets'=>[],
+              'permalink_template'=>'http://localhost:88/joomla-cms/index.php?option=com_webstories&view=storyeditor&id=%pagename%'
+          ]);
+          exit;
+        }
+    }
 }

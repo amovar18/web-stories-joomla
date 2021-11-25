@@ -37,9 +37,9 @@ class DisplayController extends BaseController {
                     $query = $db->getQuery(true);
                     
                     // Insert columns.
-                    $columns = array('published');
+                    $columns = array('published',"post_content_filtered");
                     // Insert values.
-                    $values = array('-1');
+                    $values = array('-1',json_encode(["version"=>0,"pages"=>[]]));
                     // Prepare the insert query.
                     $query
                         ->insert($db->quoteName('#__webstories'))

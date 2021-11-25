@@ -53,55 +53,6 @@ class WebstoryModel extends AdminModel
         return parent::getTable('webstories', $prefix, $options);
     }
     /**
-     * Method to get a single record.
-     *
-     * @param integer $pk The id of the primary key.
-     *
-     * @return mixed  Object on success, false on failure.
-     *
-     * @since 0.1.0
-     */
-    public function getItem($pk = null)
-    {
-        $story_id = (int)$this->getState($this->getName() . '.id');
-        $db = Factory::getDbo();
-        $query = $db->getQuery(true);
-        $query
-            ->select($db->quoteName(array('id','markup','post_date','title','modified_date','created_by','published','post_content_filtered')))
-            ->from($db->quoteName('#__webstories'))
-            ->where($db->quoteName('id') . '=' . $story_id);
-            $db->setQuery($query);
-        $item = $db->loadAssoc();
-        $story_data = !empty($item['post_content_filtered']) ? json_decode($item['post_content_filtered']) : [];
-        echo json_encode([
-            'title'=>[
-                'raw'=>$item['title'],
-            ],
-            'status'=>$item['published'] === 1 ? 'published' : 'draft',
-            'slug'=>'',
-            'date'=>$item['post_date'],
-            'modified'=>$item['modified_date'],
-            'excerpt'=>[
-                'raw'=>''
-            ],
-            'story_data'=>$story_data,
-            'link' => '',
-            'preview_link'=> 'http://localhost:88/joomla-cms/index.php?option=com_webstories&view=storyeditor&id='.$story_id,
-            'edit_link'=> '/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$story_id,
-            'embed_post_link'=> '',
-            'featured_media'=> '',
-            'author'=>$item['created_by'],
-            'lock_user'=> '',
-            'featured_media'=> '',
-            'publisher_logo'=> '',
-            'taxonomies'=>[],
-            'terms'=>[],
-            'style_presets'=>[],
-            'permalink_template'=>'http://localhost:88/joomla-cms/index.php?option=com_webstories&view=storyeditor&id=%pagename%'
-        ]);
-        exit;
-    }
-    /**
      * Method to delete one or more records.
      *
      * @param array $pks An array of record primary keys.
