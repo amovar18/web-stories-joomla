@@ -1,4 +1,28 @@
 <?php
+/**
+ * @package    Joomla.Api
+ * @subpackage webstories
+ *
+ * @author     Google
+ * @copyright  Copyright 2020 Google LLC
+ * @license    Apache License 2.0
+ * @link       https://opensource.google.com/
+ */
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 namespace Google\Component\WebStories\Api\Controller;
 defined('_JEXEC') or die;
 
@@ -383,8 +407,6 @@ class WebstoriesController extends ApiController
   /**
      * Method to get a single record.
      *
-     * @param integer $pk The id of the primary key.
-     *
      * @return mixed  Object on success, false on failure.
      *
      * @since 0.1.0
@@ -392,7 +414,7 @@ class WebstoriesController extends ApiController
     public function getSingle()
     {
         if(isset($_GET['id']) && !empty($_GET['id']) ){
-          $story_id = $_GET['id']||$id;
+          $story_id = (int)$_GET['id'];
           $db = Factory::getDbo();
           $query = $db->getQuery(true);
           $query
@@ -452,5 +474,21 @@ class WebstoriesController extends ApiController
         $result = $db->execute(); 
         echo json_encode($result);
         exit;
+    }
+    public function create_story_from_template(){  
+        $data = (array)  json_decode($this->input->json->getRaw(), true);
+        $db = Factory::getDbo();
+        // Create a new query object.
+        $query = $db->getQuery(true);
+        $fields = array();
+        $json = $db->quote(json_encode($data['storyData']));
+        $markup = json_encode($data['content']);
+        $query = "INSERT into `#__webstories` (markup,post_content_filtered,published,title,created_by) VALUES (".$markup.",".$json.",-1,'','wordpress'); ";
+        $db->setQuery($query);
+        $db->execute();
+        echo json_encode([
+          'editLink'=> '/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$db->insertid()
+        ]);
+      exit;
     }
 }

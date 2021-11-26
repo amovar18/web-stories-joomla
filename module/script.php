@@ -15,7 +15,11 @@ class mod_webstoriesInstallerScript
 	 */
 	function install($parent) 
 	{
-		echo '<p>The module has been installed.</p>';
+		$db = Factory::getDbo();
+        $query = $db->getQuery(true);
+		$query = "UPDATE `#__extensions` set enabled = 1 where element='webstories' AND type = 'plugin'";
+        $db->setQuery($query);
+        $db->execute();
 	}
 
 	/**
@@ -26,7 +30,7 @@ class mod_webstoriesInstallerScript
 	 */
 	function uninstall($parent) 
 	{
-		echo '<p>The module has been uninstalled.</p>';
+
 	}
 
 	/**
@@ -37,7 +41,11 @@ class mod_webstoriesInstallerScript
 	 */
 	function update($parent) 
 	{
-		echo '<p>The module has been updated to version' . $parent->get('manifest')->version . '.</p>';
+		$db = Factory::getDbo();
+        $query = $db->getQuery(true);
+		$query = "UPDATE `#__extensions` set enabled = 1 where element='webstories' AND type = 'plugin'";
+        $db->setQuery($query);
+        $db->execute();
 	}
 
 	/**
@@ -49,7 +57,6 @@ class mod_webstoriesInstallerScript
 	 */
 	function preflight($type, $parent) 
 	{
-		echo '<p>Anything here happens before the installation/update/uninstallation of the module.</p>';
 	}
 
 	/**
@@ -61,14 +68,5 @@ class mod_webstoriesInstallerScript
 	 */
 	function postflight($type, $parent) 
 	{
-        $db = Factory::getDbo();
-        $query = $db->getQuery(true);
-        $query
-            ->select($db->quoteName(array('id','markup','post_date','title','modified_date','created_by','published','post_content_filtered')))
-            ->from($db->quoteName('#__webstories'))
-            ->where($db->quoteName('id') . '=' . $story_id);
-            $db->setQuery($query);
-        $item = $db->loadAssoc();
-		echo '<p>Anything here happens after the installation/update/uninstallation of the module.</p>';
 	}
 }

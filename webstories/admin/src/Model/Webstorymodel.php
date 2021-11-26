@@ -1,14 +1,28 @@
 <?php
 declare(strict_types=1);
 /**
- * Helloapi
+ * @package    Joomla.Administrator
+ * @subpackage com_webstories
  *
- * @package    Webstories
+ * @author     Google
+ * @copyright  Copyright 2020 Google LLC
+ * @license    Apache License 2.0
+ * @link       https://opensource.google.com/
+ */
+/**
+ * Copyright 2020 Google LLC
  *
- * @author     Alexandre ELISÉ <contact@alexandre-elise.fr>
- * @copyright  Copyright(c) 2009 - 2021 Alexandre ELISÉ. All rights reserved
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
- * @link       https://alexandre-elise.fr
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 namespace Google\Component\WebStories\Administrator\Model;
@@ -19,11 +33,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 
-/**
- * Methods supporting a list of helloapi records.
- *
- * @since  0.1.0
- */
+
 class WebstoryModel extends AdminModel
 {
         /**

@@ -1,32 +1,34 @@
 <?php
 /**
  * @package     Joomla.Plugin
- * @subpackage  Fields.List
- *
- * @copyright   (C) 2017 Open Source Matters, Inc. <https://www.joomla.org>
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @subpackage  Fields
+ * 
+ * @author     Google
+ * @copyright  Copyright 2020 Google LLC
+ * @license    Apache License 2.0
+ * @link       https://opensource.google.com/
  */
 
+
+ /**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 defined('_JEXEC') or die;
 
-/**
- * Fields list Plugin
- *
- * @since  3.7.0
- */
 class PlgFieldsWebstories extends \Joomla\Component\Fields\Administrator\Plugin\FieldsListPlugin
 {
-	/**
-	 * Before prepares the field value.
-	 *
-	 * @param   string     $context  The context.
-	 * @param   \stdclass  $item     The item.
-	 * @param   \stdclass  $field    The field.
-	 *
-	 * @return  void
-	 *
-	 * @since   3.7.0
-	 */
 	public function onCustomFieldsBeforePrepareField($context, $item, $field)
 	{
 		if (!$this->app->isClient('api'))
@@ -42,18 +44,6 @@ class PlgFieldsWebstories extends \Joomla\Component\Fields\Administrator\Plugin\
 		$options = $this->getOptionsFromField($field);
 		$field->apivalue = [$field->value => $options[$field->value]];
 	}
-
-	/**
-	 * Prepares the field
-	 *
-	 * @param   string    $context  The context.
-	 * @param   stdclass  $item     The item.
-	 * @param   stdclass  $field    The field.
-	 *
-	 * @return  object
-	 *
-	 * @since   3.9.2
-	 */
 	public function onCustomFieldsPrepareField($context, $item, $field)
 	{
 		// Check if the field should be processed

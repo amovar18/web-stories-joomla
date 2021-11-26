@@ -1,11 +1,12 @@
 <?php
 /**
- * @package    [PACKAGE_NAME]
+ * @package    Joomla.Modules
+ * @subpackage mod_webstories
  *
- * @author     [AUTHOR] <[AUTHOR_EMAIL]>
- * @copyright  [COPYRIGHT]
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
- * @link       [AUTHOR_URL]
+ * @author     Google
+ * @copyright  Copyright 2020 Google LLC
+ * @license    Apache License 2.0
+ * @link       https://opensource.google.com/
  */
 
 // No direct access to this file
@@ -26,5 +27,8 @@ foreach ($jcFields as $jcField) {
     if ($jcField->name==='webstories') {
         $webstoryid=$jcField->rawvalue[0];
     }
+}
+if(empty($webstoryid) || $webstoryid==='none'){
+    return;
 }
 echo "<iframe id='15' style='height:600px;width:360px' src='http://localhost:88/joomla-cms/index.php?option=com_webstories&view=Storyeditor&id=".$webstoryid."'></iframe>";

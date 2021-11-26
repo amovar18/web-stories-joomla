@@ -15,18 +15,40 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\WebAsset\WebAssetManager;
 
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->useStyle('com_webstories.joomla-story-editor');
+$app = Factory::getApplication();
+$wa->useStyle('com_webstories.joomla-props-to-save');
+$wa->useStyle('com_webstories.joomla-props-to-save-rtl');
 $wa->useStyle('com_webstories.joomla-story-editor-rtl');
-$wa->useScript('com_webstories.vendor-shared-js');
-$wa->useScript('com_webstories.resize-observer');
+$wa->useStyle('com_webstories.joomla-story-editor');
+
 $wa->useScript('com_webstories.dashboard');
+$wa->useScript('com_webstories.vendors-dashboard');
+$wa->useScript('com_webstories.resize-observer');
+$wa->useScript('com_webstories.vendor-shared-js');
+$wa->useScript('com_webstories.get-story-props-to-save-shared');
+$wa->useScript('com_webstories.get-story-props-to-save');
 $db = Factory::getDbo();
-$query = $db->getQuery(true);
-$query
-    ->select($db->quoteName(array('id')))
-    ->from($db->quoteName('#__webstories'));
+$query = $db->getQuery(true)
+		->select($db->qn('profile_value'))
+		->from($db->qn('#__user_profiles'))
+		->where($db->qn('profile_key') . ' = "joomlatoken.token"')
+		->where($db->qn('user_id') . ' = 215');
 $db->setQuery($query);
-$items = $db->loadObjectList();
+$item = $db->loadAssoc();
+$tokenSeed = $item['profile_value'];
+$siteSecret = $app->get('secret');
+if (empty($siteSecret))
+{
+	return '';
+}
+$rawToken  = base64_decode($tokenSeed);
+$tokenHash = hash_hmac('sha256', $rawToken, $siteSecret);
+$message   = base64_encode("sha256:215:$tokenHash");
+echo '<script type="text/javascript">
+var dashboardSettings = {
+    "token":"'.$message.'"
+};
+</script>';
 ?>
 <h1> Dashboard</h1>
 <script type="text/javascript">

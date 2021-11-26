@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" method="upgrade">
     <name>Web Stories</name>
-    <creationDate>December 2019</creationDate>
     <author>Google</author>
-    <authorUrl>https://smith.ca</authorUrl>
-    <license>GPL v2</license>
-    <!--  The version string is recorded in the components table -->
-    <version>1.12.0</version>
-    <!-- The description is optional and defaults to the name -->
-    <description>
-        Web Stories for a visual storytelling experience.
-    </description>
-
-    <!-- This is the PHP namespace under which the extension's
-    code is organised. It should follow this format:
-    
-    Vendor\Component\ComponentName
-
-    "Vendor" can be your company or your own name
-    
-    The "ComponentName" section MUST match the name used 
-    everywhere else for your component. Whatever the name of 
-    this XML file is, the namespace must match (ignoring CamelCase). 
-    -->
+	<creationDate>November 2018</creationDate>
+	<copyright>Copyright (C) 2020 Google LLC</copyright>
+	<license>Apache License 2.0</license>
+	<authorUrl>https://opensource.google.com/</authorUrl>
+	<version>1.15.0-alpha.0</version>
     <namespace path="src/">Google\Component\WebStories</namespace>
     <files folder="site/">
         <folder>src</folder>
