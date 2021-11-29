@@ -23,9 +23,18 @@ $item = $db->loadAssoc();
 
 ?>
 <script type="text/javascript">
+    window.onload=function(){
+    document.body.className.replace('has-sidebar-right','')
     const header = document.getElementsByClassName('header container-header full-width');
     const footer = document.getElementsByClassName('container-footer footer full-width');
-    header[0].remove();
-    footer[0].remove();
+    header[0] ? header[0].remove():null;
+    footer[0] ? footer[0].remove():null;
+    const left = document.getElementsByClassName('grid-child container-sidebar-left');
+    const bottom = document.getElementsByClassName('grid-child container-bottom-a');
+    const right = document.getElementsByClassName('grid-child container-sidebar-right');
+        right[0] ? right[0].remove(): null;
+        left[0] ? left[0].remove():null;
+        bottom[0] ? bottom[0].remove():null;
+    }
 </script>
 <?php var_dump($item['markup']);?>

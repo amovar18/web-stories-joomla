@@ -43,7 +43,7 @@ if (empty($siteSecret))
 }
 $rawToken  = base64_decode($tokenSeed);
 $tokenHash = hash_hmac('sha256', $rawToken, $siteSecret);
-$message   = base64_encode("sha256:215:$tokenHash");
+$message   = base64_encode("sha256:$user->id:$tokenHash");
 echo '<script type="text/javascript">
     var webStoriesEditorSettings = {"config":{
         "api":{

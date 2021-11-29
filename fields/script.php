@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
  * @link       https://opensource.google.com/
  */
 use Joomla\CMS\Factory;
-class plgfieldswebstoriesInstallerScript
+class PlgfieldswebstoriesInstallerScript
 {
     /**
      * This method is called after a component is installed.
@@ -29,13 +29,15 @@ class plgfieldswebstoriesInstallerScript
         $query = $db->getQuery(true);
         $query = "select * from #__fields where label = 'webstories'";
         $db->setQuery($query);
+        $db->execute();
         $result = $db->loadAssoc();
         if(empty($result)){
             $query = "INSERT INTO `#__fields`(`modified_time`,`created_time`,`context`,`title`,`params`,`description`, `name`, `label`, `type`, `state`, `required`, `fieldparams`, `access`) VALUES 
             ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."','com_content.article','webstories','','','webstories','webstories','webstories',1,0,'".json_encode(['multiple'=>0])."',1)";
             $db->setQuery($query);
+            $result = $db->execute();
         }
-        $query = "UPDATE `#__extensions` set enabled = 1 where name='plg_fields_webstories' AND type = 'plugin'";
+        $query = "UPDATE `#__extensions` set enabled = 1 where element='webstories' AND type = 'plugin'";
         $db->setQuery($query);
         $db->execute();
     }
@@ -64,13 +66,15 @@ class plgfieldswebstoriesInstallerScript
         $query = $db->getQuery(true);
         $query = "select * from #__fields where label = 'webstories'";
         $db->setQuery($query);
+        $db->execute();
         $result = $db->loadAssoc();
         if(empty($result)){
             $query = "INSERT INTO `#__fields`(`modified_time`,`created_time`,`context`,`title`,`params`,`description`, `name`, `label`, `type`, `state`, `required`, `fieldparams`, `access`) VALUES 
             ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."','com_content.article','webstories','','','webstories','webstories','webstories',1,0,'".json_encode(['multiple'=>0])."',1)";
             $db->setQuery($query);
+            $result = $db->execute();
         }
-        $query = "UPDATE `#__extensions` set enabled = 1 where name='plg_fields_webstories' AND type = 'plugin'";
+        $query = "UPDATE `#__extensions` set enabled = 1 where element='webstories' AND type = 'plugin'";
         $db->setQuery($query);
         $db->execute();
     }

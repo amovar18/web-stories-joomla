@@ -306,14 +306,23 @@ class WebstoriesController extends ApiController
       $db->execute();
       $single_story=array(
         'id'=>$item['id'],
-        'status'=>$item['published'] === 1 ? 'published' : 'draft',
+        'status'=>$item['published']===1 ? 'published' : 'draft',
         'title'=>$item['title'],
         'created'=>$item['post_date'],
-        'createdGmt'=>$item['modified_date'],
+        'createdGmt'=>$item['post_date'],
         'author'=>[
           'name'=>$item['created_by'],
           'id'=>1,
         ],
+        'capabilities'=>[
+          'hasEditAction'=>true,
+          'hasDeleteAction'=>true
+        ],
+        'modified'=>$item['modified_date'],
+        'modifiedGmt'=>$item['modified_date'],
+        'editStoryLink'=>'/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$item['id'],
+        'previewLink'=> '/joomla-cms/index.php?option=com_webstories&view=storyeditor&id='.$item['id'],
+        'bottomTargetAction'=> '/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$data['id'],
         'featuredMediaUrl'=>'',
       );
       echo json_encode($single_story);
@@ -337,7 +346,7 @@ class WebstoriesController extends ApiController
       $db->setQuery($query);
       $db->execute();
       $single_story=array(
-        'id'=>$item['id'],
+        'id'=>$db->insertid(),
         'status'=>'draft',
         'title'=>$item['title'].'(Copy)',
         'created'=>date('Y-m-d H:i:s'),
@@ -389,7 +398,8 @@ class WebstoriesController extends ApiController
               'modified'=>$item['modified_date'],
               'modifiedGmt'=>$item['modified_date'],
               'editStoryLink'=>'/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$item['id'],
-              'previewLink'=> 'http://localhost:88/joomla-cms/index.php?option=com_webstories&view=storyeditor&id='.$item['id'],
+              'previewLink'=> '/joomla-cms/index.php?option=com_webstories&view=storyeditor&id='.$item['id'],
+              'bottomTargetAction'=> '/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&id='.$data['id'],
               'featuredMediaUrl'=>'',
             );
             $stories[$item['id']]= $single_story;

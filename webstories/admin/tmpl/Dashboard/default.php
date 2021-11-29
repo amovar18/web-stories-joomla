@@ -28,11 +28,12 @@ $wa->useScript('com_webstories.vendor-shared-js');
 $wa->useScript('com_webstories.get-story-props-to-save-shared');
 $wa->useScript('com_webstories.get-story-props-to-save');
 $db = Factory::getDbo();
+$user = Factory::getUser();
 $query = $db->getQuery(true)
 		->select($db->qn('profile_value'))
 		->from($db->qn('#__user_profiles'))
 		->where($db->qn('profile_key') . ' = "joomlatoken.token"')
-		->where($db->qn('user_id') . ' = 215');
+		->where($db->qn('user_id') . ' = '.$user->id);
 $db->setQuery($query);
 $item = $db->loadAssoc();
 $tokenSeed = $item['profile_value'];
@@ -43,10 +44,31 @@ if (empty($siteSecret))
 }
 $rawToken  = base64_decode($tokenSeed);
 $tokenHash = hash_hmac('sha256', $rawToken, $siteSecret);
-$message   = base64_encode("sha256:215:$tokenHash");
+$message   = base64_encode("sha256:$user->id:$tokenHash");
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
+    $url = "https://";   
+else  
+    $url = "http://"; 
+$newStoryUrl = $url.$_SERVER['HTTP_HOST'].'/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&create_new=yes';
 echo '<script type="text/javascript">
 var dashboardSettings = {
-    "token":"'.$message.'"
+    "config":{
+        "token":"'.$message.'",
+        "api":{
+            "fetchStories":"../api/index.php/v1/webstories",
+            "duplicateStory":"../api/index.php/v1/webstories/duplicate",
+            "updateStory":"../api/index.php/v1/webstories/rename",
+            "trashStory":"../api/index.php/v1/webstories/delete",
+            "createStoryFromTemplate":"../api/index.php/v1/webstories/create_story_from_template",
+        },
+        "allowedImageMimeTypes":["image/webp","image/png","image/jpeg","image/gif"],
+        "capabilities":{
+            "canManageSettings": true,
+            "canUploadFiles": true
+        },
+        "cdnURL":"https://wp.stories.google/static/main/",
+        "newStoryURL":"'.$newStoryUrl.'",
+    }
 };
 </script>';
 ?>
@@ -60,17 +82,6 @@ var dashboardSettings = {
 </script>
 <script type='text/javascript'>
     document.body.className += ' js web-story_page_stories-dashboard';
-    function deleteStory(id){
-        var xhr1 = new XMLHttpRequest();
-        xhr1.open('DELETE', "http://localhost:88/joomla-cms/api/index.php/v1/webstories/"+id, true);
-        xhr1.setRequestHeader ("Authorization", "Bearer c2hhMjU2OjIxNTo4YWEzMzIyOTgwYjJmY2YwYjY1NTFiZDJjNTJiN2JjNzhiYzQzZGZlYWY2NjFmOGM4OTVmN2FhOGNlYzJkMGVk");
-        xhr1.onreadystatechange = function() {
-            if (this.status == 200 && this.readyState == 4) {
-                window.location.reload();
-            };//end onreadystate
-        }
-        xhr1.send();
-    }
 </script>
 <div class="app">
 <div class="web-stories-wp">
