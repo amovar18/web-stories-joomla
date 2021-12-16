@@ -41,11 +41,14 @@ class JFormFieldWebstories extends JFormFieldList {
 		$app = JFactory::getApplication();
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select($db->quoteName(array('id', 'title')))->from('#__webstories');
+        $query->select($db->quoteName(array('id', 'title','published')))->from('#__webstories');
 		$rows = $db->setQuery($query)->loadObjectlist();
 		$stories[] = JHTML::_('select.option', 'none',"--None--");
         foreach($rows as $row){
-            $stories[] = JHTML::_('select.option', $row->id, $row->id . " (" . $row->title . ")");
+			if($row->published===1)
+            {
+				$stories[] = JHTML::_('select.option', $row->id, $row->id . " (" . $row->title . ")");
+			}
         }
 		$options = array_merge(parent::getOptions(), $stories);
         return $options;

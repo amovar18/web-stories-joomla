@@ -68,7 +68,12 @@ echo '<script type="text/javascript">
         "autoSaveInterval": 60,
         "cdnURL": "https://wp.stories.google/static/main/",
         "ffmpegCoreUrl": "https://wp.stories.google/static/main/js/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
-        "token":"'.$message.'"
+        "token":"'.$message.'",
+        "userId":'.$user->id.',
+        "capabilities": {
+            "hasUploadMediaAction": true,
+            "canManageSettings":true,
+        },
     }}
 </script>';
 echo HTMLHelper::_(
@@ -86,8 +91,24 @@ echo HTMLHelper::_(
                     <input type="file" onchange="embedPreview(this)" class="form-control" id="file-input-button" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                     <button class="btn btn-outline-secondary" onclick="submitImages()" type="button" id="successButton">Upload</button>
                 </div>
-                <div id="carousel">
+                <div id="mediaCarousel">
                 </div>
+            </div>
+        </form>
+    ',
+);
+echo HTMLHelper::_(
+    'bootstrap.renderModal',
+    'posterModal',
+    [
+        'backdrop'    => 'static',
+        'title' => 'Select as poster image',
+        'footer' => '<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="insertPoster()" id="close-button">Insert</button>'
+    ],
+    '
+        <form>
+            <div id="posterCarousel" style="display:flex;flex-direction:row;overflow:auto">
+
             </div>
         </form>
     ',

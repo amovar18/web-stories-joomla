@@ -16,7 +16,6 @@ JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/
 JModelLegacy::addIncludePath(JPATH_SITE. '/components/com_content/models', 'ContentModel');
 
 $id = JFactory::getApplication()->input->get('id');
-
 $model = JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request'=>true));
 $appParams = JFactory::getApplication()->getParams();
 $model->setState('params', $appParams);
@@ -31,4 +30,5 @@ foreach ($jcFields as $jcField) {
 if(empty($webstoryid) || $webstoryid==='none'){
     return;
 }
-echo "<iframe id='15' style='height:600px;width:360px' src='http://localhost:88/joomla-cms/index.php?option=com_webstories&view=Storyeditor&id=".$webstoryid."'></iframe>";
+
+echo "<iframe id='15' style='height:600px;width:360px' src='http://localhost:88/joomla/index.php?option=com_webstories&view=Storyeditor&id=".$webstoryid."'></iframe>";

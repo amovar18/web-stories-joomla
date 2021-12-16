@@ -49,7 +49,7 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
     $url = "https://";   
 else  
     $url = "http://"; 
-$newStoryUrl = $url.$_SERVER['HTTP_HOST'].'/joomla-cms/administrator/index.php?option=com_webstories&view=storyeditor&create_new=yes';
+$newStoryUrl = $url.$_SERVER['HTTP_HOST'].'/joomla/administrator/index.php?option=com_webstories&view=storyeditor&create_new=yes';
 echo '<script type="text/javascript">
 var dashboardSettings = {
     "config":{
@@ -68,11 +68,11 @@ var dashboardSettings = {
         },
         "cdnURL":"https://wp.stories.google/static/main/",
         "newStoryURL":"'.$newStoryUrl.'",
+        "userId":'.$user->id.'
     }
 };
 </script>';
 ?>
-<h1> Dashboard</h1>
 <script type="text/javascript">
     window.onload = function(){
         document.getElementById('wrapper').classList.replace('open', 'closed');
@@ -85,7 +85,6 @@ var dashboardSettings = {
 </script>
 <div class="app">
 <div class="web-stories-wp">
-    <h1 class="screen-reader-text hide-if-no-js">Web Stories</h1>
     <div id="web-stories-dashboard" class="web-stories-dashboard-app-container hide-if-no-js">
     </div>
 </div>

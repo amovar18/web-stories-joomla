@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <extension type="package" method="upgrade">
+    <name>Webstories</name>
+    <author>Google</author>
+    <creationDate>November 2018</creationDate>
+    <copyright>Copyright (C) 2020 Google LLC</copyright>
+    <license>Apache License 2.0</license>
+    <authorUrl>https://opensource.google.com/</authorUrl>
+    <packagename>Webstories</packagename>
+    <version>1.0.0</version>
+    <url>http://www.yoururl.com/</url>
+    <packager>Google</packager>
+    <description>Components to make webstories run in joomla.</description>
+    <file>webstories.xml</file>
+     <scriptfile>pkg_script.php</scriptfile>
+    <files>
+        <file type="component" id="webstories" >webstories.zip</file>
+        <file type="module" id="webstories" client="site">module.zip</file>
+        <file type="plugin" id="webstories" group="webservices">webservices.zip</file>
+        <file type="plugin" id="webstories" group="fields">fields.zip</file>
+    </files>
+ </extension>

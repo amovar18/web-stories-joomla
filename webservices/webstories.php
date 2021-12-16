@@ -90,6 +90,11 @@ class PlgWebservicesWebstories extends CMSPlugin
             'webstories.deleteSingle',
             ['component' => 'com_webstories'],
         );
+        $router->createCRUDRoutes(
+            'v1/webstories/users',
+            'webstories.getAllAuthors',
+            ['component' => 'com_webstories'],
+        );
         
     }
 }
