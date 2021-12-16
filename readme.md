@@ -1,5 +1,6 @@
 # Web stories for Joomla CMS
-For curious minds you can take a look here to explore the source code for [Joomla Webstories](https://github.com/amovar18/web-stories-joomla-javascript) 
+
+For curious minds you can take a look here to explore the source code for [Joomla Webstories](https://github.com/amovar18/web-stories-joomla-javascript)
 ---
 
 ## Prerequisites for embedding webstories in joomla
