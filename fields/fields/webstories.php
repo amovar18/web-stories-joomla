@@ -3,13 +3,13 @@
  * @package    Joomla.Fields
  *
  * @author     Google
- * @copyright  Copyright 2020 Google LLC
+ * @copyright  Copyright 2021 Google LLC
  * @license    Apache License 2.0
  * @link       https://opensource.google.com/
  */
 
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

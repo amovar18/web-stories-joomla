@@ -4,12 +4,12 @@
  * @subpackage com_webstories
  *
  * @author     Google
- * @copyright  Copyright 2020 Google LLC
+ * @copyright  Copyright 2021 Google LLC
  * @license    Apache License 2.0
  * @link       https://opensource.google.com/
  */
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
  * @package     Joomla.Administrator
  * @subpackage  com_helloworld
  *
- * @copyright   Copyright (C) 2020 John Smith. All rights reserved.
+ * @copyright   Copyright (C) 2021 John Smith. All rights reserved.
  * @license     GNU General Public License version 3; see LICENSE
  */
 

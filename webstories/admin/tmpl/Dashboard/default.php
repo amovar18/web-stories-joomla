@@ -4,7 +4,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_webstories
  *
- * @copyright   Copyright (C) 2020 John Smith. All rights reserved.
+ * @copyright   Copyright (C) 2021 John Smith. All rights reserved.
  * @license     GNU General Public License version 2; see LICENSE
  */
 defined('_JEXEC') or die;

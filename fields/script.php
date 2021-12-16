@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Restricted access');
  * @subpackage  Fields
  *
  * @author     Google
- * @copyright  Copyright 2020 Google LLC
+ * @copyright  Copyright 2021 Google LLC
  * @license    Apache License 2.0
  * @link       https://opensource.google.com/
  */
