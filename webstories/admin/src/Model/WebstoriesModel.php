@@ -56,7 +56,8 @@ class WebstoriesModel extends ListModel
 				'modified_date', 'a.modified_date',
 				'published', 'a.published',
 				'created_by', 'a.created_by',
-                'post_content_filtered', 'a.post_content_filtered'
+                'post_content_filtered', 'a.post_content_filtered',
+				'features_media_url', 'a.featured_media_url'
 			);
 		}
 

@@ -64,7 +64,7 @@ class DisplayController extends BaseController {
                     $this->setRedirect(Route::_('index.php?option=com_webstories&view=storyeditor&id='.$id, false));
             } else {
                 $id = $this->input->get('id');
-                // Somehow the person just went to the form - we don't allow that.
+                // Somehow the person just went to the story-editor - we don't allow that.
                 if (preg_match('/[0-9]/', $_GET['id'])===0) {
                     $this->setRedirect(Route::_('index.php?option=com_webstories', false));
                 }

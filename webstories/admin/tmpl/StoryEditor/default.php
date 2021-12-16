@@ -16,6 +16,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $app = Factory::getApplication();
+
 $wa->useStyle('com_webstories.joomla-props-to-save');
 $wa->useStyle('com_webstories.joomla-props-to-save-rtl');
 $wa->useStyle('com_webstories.joomla-story-editor-rtl');
@@ -25,6 +26,7 @@ $wa->useScript('com_webstories.get-story-props-to-save');
 $wa->useScript('com_webstories.story-editor-js');
 $wa->useScript('com_webstories.vendor-shared-js');
 $wa->useScript('com_webstories.resize-observer');
+
 $id = $_GET['id'];
 $db = Factory::getDbo();
 $user = Factory::getUser();
@@ -37,13 +39,16 @@ $db->setQuery($query);
 $item = $db->loadAssoc();
 $tokenSeed = $item['profile_value'];
 $siteSecret = $app->get('secret');
+
 if (empty($siteSecret))
 {
 	return '';
 }
+
 $rawToken  = base64_decode($tokenSeed);
 $tokenHash = hash_hmac('sha256', $rawToken, $siteSecret);
 $message   = base64_encode("sha256:$user->id:$tokenHash");
+
 echo '<script type="text/javascript">
     var webStoriesEditorSettings = {"config":{
         "api":{
@@ -76,6 +81,7 @@ echo '<script type="text/javascript">
         },
     }}
 </script>';
+
 echo HTMLHelper::_(
     'bootstrap.renderModal',
     'mediaModal',
@@ -97,6 +103,7 @@ echo HTMLHelper::_(
         </form>
     ',
 );
+
 echo HTMLHelper::_(
     'bootstrap.renderModal',
     'posterModal',
