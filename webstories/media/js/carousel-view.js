@@ -1,1 +1,891 @@
-!function(e){var t={};function __webpack_require__(i){if(t[i])return t[i].exports;var o=t[i]={i:i,l:!1,exports:{}};return e[i].call(o.exports,o,o.exports,__webpack_require__),o.l=!0,o.exports}__webpack_require__.m=e,__webpack_require__.c=t,__webpack_require__.d=function(e,t,i){__webpack_require__.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},__webpack_require__.t=function(e,t){if(1&t&&(e=__webpack_require__(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(__webpack_require__.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)__webpack_require__.d(i,o,function(t){return e[t]}.bind(null,o));return i},__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,"a",t),t},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.p="../media/com_webstories/js/",__webpack_require__(__webpack_require__.s=2)}([function(e,t){e.exports=window.wp.domReady},function(e,t,i){var o,r;void 0===(r="function"==typeof(o=function(){var e="undefined"!=typeof window?window:this,t=e.Glider=function(t,i){var o=this;if(t._glider)return t._glider;if(o.ele=t,o.ele.classList.add("glider"),o.ele._glider=o,o.opt=Object.assign({},{slidesToScroll:1,slidesToShow:1,resizeLock:!0,duration:.5,easing:function(e,t,i,o,r){return o*(t/=r)*t+i}},i),o.animate_id=o.page=o.slide=0,o.arrows={},o._opt=o.opt,o.opt.skipTrack)o.track=o.ele.children[0];else for(o.track=document.createElement("div"),o.ele.appendChild(o.track);1!==o.ele.children.length;)o.track.appendChild(o.ele.children[0]);o.track.classList.add("glider-track"),o.init(),o.resize=o.init.bind(o,!0),o.event(o.ele,"add",{scroll:o.updateControls.bind(o)}),o.event(e,"add",{resize:o.resize})},i=t.prototype;return i.init=function(e,t){var i=this,o=0,r=0;i.slides=i.track.children,[].forEach.call(i.slides,(function(e,t){e.classList.add("glider-slide"),e.setAttribute("data-gslide",t)})),i.containerWidth=i.ele.clientWidth;var s=i.settingsBreakpoint();if(t||(t=s),"auto"===i.opt.slidesToShow||void 0!==i.opt._autoSlide){var l=i.containerWidth/i.opt.itemWidth;i.opt._autoSlide=i.opt.slidesToShow=i.opt.exactWidth?l:Math.max(1,Math.floor(l))}"auto"===i.opt.slidesToScroll&&(i.opt.slidesToScroll=Math.floor(i.opt.slidesToShow)),i.itemWidth=i.opt.exactWidth?i.opt.itemWidth:i.containerWidth/i.opt.slidesToShow,[].forEach.call(i.slides,(function(e){e.style.height="auto",e.style.width=i.itemWidth+"px",o+=i.itemWidth,r=Math.max(e.offsetHeight,r)})),i.track.style.width=o+"px",i.trackWidth=o,i.isDrag=!1,i.preventClick=!1,i.opt.resizeLock&&i.scrollTo(i.slide*i.itemWidth,0),(s||t)&&(i.bindArrows(),i.buildDots(),i.bindDrag()),i.updateControls(),i.emit(e?"refresh":"loaded")},i.bindDrag=function(){var e=this;e.mouse=e.mouse||e.handleMouse.bind(e);var t=function(){e.mouseDown=void 0,e.ele.classList.remove("drag"),e.isDrag&&(e.preventClick=!0),e.isDrag=!1},i={mouseup:t,mouseleave:t,mousedown:function(t){t.preventDefault(),t.stopPropagation(),e.mouseDown=t.clientX,e.ele.classList.add("drag")},mousemove:e.mouse,click:function(t){e.preventClick&&(t.preventDefault(),t.stopPropagation()),e.preventClick=!1}};e.ele.classList.toggle("draggable",!0===e.opt.draggable),e.event(e.ele,"remove",i),e.opt.draggable&&e.event(e.ele,"add",i)},i.buildDots=function(){var e=this;if(e.opt.dots){if("string"==typeof e.opt.dots?e.dots=document.querySelector(e.opt.dots):e.dots=e.opt.dots,e.dots){e.dots.innerHTML="",e.dots.classList.add("glider-dots");for(var t=0;t<Math.ceil(e.slides.length/e.opt.slidesToShow);++t){var i=document.createElement("button");i.dataset.index=t,i.setAttribute("aria-label","Page "+(t+1)),i.setAttribute("role","tab"),i.className="glider-dot "+(t?"":"active"),e.event(i,"add",{click:e.scrollItem.bind(e,t,!0)}),e.dots.appendChild(i)}}}else e.dots&&(e.dots.innerHTML="")},i.bindArrows=function(){var e=this;e.opt.arrows?["prev","next"].forEach((function(t){var i=e.opt.arrows[t];i&&("string"==typeof i&&(i=document.querySelector(i)),i&&(i._func=i._func||e.scrollItem.bind(e,t),e.event(i,"remove",{click:i._func}),e.event(i,"add",{click:i._func}),e.arrows[t]=i))})):Object.keys(e.arrows).forEach((function(t){var i=e.arrows[t];e.event(i,"remove",{click:i._func})}))},i.updateControls=function(e){var t=this;e&&!t.opt.scrollPropagate&&e.stopPropagation();var i=t.containerWidth>=t.trackWidth;t.opt.rewind||(t.arrows.prev&&(t.arrows.prev.classList.toggle("disabled",t.ele.scrollLeft<=0||i),t.arrows.prev.classList.contains("disabled")?t.arrows.prev.setAttribute("aria-disabled",!0):t.arrows.prev.setAttribute("aria-disabled",!1)),t.arrows.next&&(t.arrows.next.classList.toggle("disabled",Math.ceil(t.ele.scrollLeft+t.containerWidth)>=Math.floor(t.trackWidth)||i),t.arrows.next.classList.contains("disabled")?t.arrows.next.setAttribute("aria-disabled",!0):t.arrows.next.setAttribute("aria-disabled",!1))),t.slide=Math.round(t.ele.scrollLeft/t.itemWidth),t.page=Math.round(t.ele.scrollLeft/t.containerWidth);var o=t.slide+Math.floor(Math.floor(t.opt.slidesToShow)/2),r=Math.floor(t.opt.slidesToShow)%2?0:o+1;1===Math.floor(t.opt.slidesToShow)&&(r=0),t.ele.scrollLeft+t.containerWidth>=Math.floor(t.trackWidth)&&(t.page=t.dots?t.dots.children.length-1:0),[].forEach.call(t.slides,(function(e,i){var s=e.classList,l=s.contains("visible"),n=t.ele.scrollLeft,a=t.ele.scrollLeft+t.containerWidth,d=t.itemWidth*i,c=d+t.itemWidth;[].forEach.call(s,(function(e){/^left|right/.test(e)&&s.remove(e)})),s.toggle("active",t.slide===i),o===i||r&&r===i?s.add("center"):(s.remove("center"),s.add([i<o?"left":"right",Math.abs(i-(i<o?o:r||o))].join("-")));var u=Math.ceil(d)>=Math.floor(n)&&Math.floor(c)<=Math.ceil(a);s.toggle("visible",u),u!==l&&t.emit("slide-"+(u?"visible":"hidden"),{slide:i})})),t.dots&&[].forEach.call(t.dots.children,(function(e,i){e.classList.toggle("active",t.page===i)})),e&&t.opt.scrollLock&&(clearTimeout(t.scrollLock),t.scrollLock=setTimeout((function(){clearTimeout(t.scrollLock),Math.abs(t.ele.scrollLeft/t.itemWidth-t.slide)>.02&&(t.mouseDown||t.trackWidth>t.containerWidth+t.ele.scrollLeft&&t.scrollItem(t.getCurrentSlide()))}),t.opt.scrollLockDelay||250))},i.getCurrentSlide=function(){var e=this;return e.round(e.ele.scrollLeft/e.itemWidth)},i.scrollItem=function(e,t,i){i&&i.preventDefault();var o=this,r=e;if(++o.animate_id,!0===t)e*=o.containerWidth,e=Math.round(e/o.itemWidth)*o.itemWidth;else{if("string"==typeof e){var s="prev"===e;if(e=o.opt.slidesToScroll%1||o.opt.slidesToShow%1?o.getCurrentSlide():o.slide,s?e-=o.opt.slidesToScroll:e+=o.opt.slidesToScroll,o.opt.rewind){var l=o.ele.scrollLeft;e=s&&!l?o.slides.length:!s&&l+o.containerWidth>=Math.floor(o.trackWidth)?0:e}}e=Math.max(Math.min(e,o.slides.length),0),o.slide=e,e=o.itemWidth*e}return o.scrollTo(e,o.opt.duration*Math.abs(o.ele.scrollLeft-e),(function(){o.updateControls(),o.emit("animated",{value:r,type:"string"==typeof r?"arrow":t?"dot":"slide"})})),!1},i.settingsBreakpoint=function(){var t=this,i=t._opt.responsive;if(i){i.sort((function(e,t){return t.breakpoint-e.breakpoint}));for(var o=0;o<i.length;++o){var r=i[o];if(e.innerWidth>=r.breakpoint)return t.breakpoint!==r.breakpoint&&(t.opt=Object.assign({},t._opt,r.settings),t.breakpoint=r.breakpoint,!0)}}var s=0!==t.breakpoint;return t.opt=Object.assign({},t._opt),t.breakpoint=0,s},i.scrollTo=function(t,i,o){var r=this,s=(new Date).getTime(),l=r.animate_id,n=function(){var a=(new Date).getTime()-s;r.ele.scrollLeft=r.ele.scrollLeft+(t-r.ele.scrollLeft)*r.opt.easing(0,a,0,1,i),a<i&&l===r.animate_id?e.requestAnimationFrame(n):(r.ele.scrollLeft=t,o&&o.call(r))};e.requestAnimationFrame(n)},i.removeItem=function(e){var t=this;t.slides.length&&(t.track.removeChild(t.slides[e]),t.refresh(!0),t.emit("remove"))},i.addItem=function(e){var t=this;t.track.appendChild(e),t.refresh(!0),t.emit("add")},i.handleMouse=function(e){var t=this;t.mouseDown&&(t.isDrag=!0,t.ele.scrollLeft+=(t.mouseDown-e.clientX)*(t.opt.dragVelocity||3.3),t.mouseDown=e.clientX)},i.round=function(e){var t=1/(this.opt.slidesToScroll%1||1);return Math.round(e*t)/t},i.refresh=function(e){this.init(!0,e)},i.setOption=function(e,t){var i=this;i.breakpoint&&!t?i._opt.responsive.forEach((function(t){t.breakpoint===i.breakpoint&&(t.settings=Object.assign({},t.settings,e))})):i._opt=Object.assign({},i._opt,e),i.breakpoint=0,i.settingsBreakpoint()},i.destroy=function(){var t=this,i=t.ele.cloneNode(!0),o=function(e){e.removeAttribute("style"),[].forEach.call(e.classList,(function(t){/^glider/.test(t)&&e.classList.remove(t)}))};i.children[0].outerHTML=i.children[0].innerHTML,o(i),[].forEach.call(i.getElementsByTagName("*"),o),t.ele.parentNode.replaceChild(i,t.ele),t.event(e,"remove",{resize:t.resize}),t.emit("destroy")},i.emit=function(t,i){var o=this,r=new e.CustomEvent("glider-"+t,{bubbles:!o.opt.eventPropagate,detail:i});o.ele.dispatchEvent(r)},i.event=function(e,t,i){var o=e[t+"EventListener"].bind(e);Object.keys(i).forEach((function(e){o(e,i[e])}))},t})?o.call(t,i,t,e):o)||(e.exports=r)},function(e,t,i){"use strict";i.r(t);var o=i(1),r=i.n(o);r.a.prototype.scrollItem=function(e,t,i){var o;if(void 0===i&&null!==(o=t)&&void 0!==o&&o.target&&(i=t,t=!1),void 0===i)return!1;if(i&&i.preventDefault(),this.opt.slidesToScroll=Math.max(1,this.opt.slidesToScroll),this.opt.slidesToShow=Math.max(1,this.opt.slidesToShow),this.itemWidth===1/0){const e=i.target.parentElement.querySelector(".web-stories-list__carousel"),t=window.getComputedStyle(e.querySelector(".web-stories-list__story"));this.itemWidth=parseFloat(t.width)+(parseFloat(t.marginLeft)+parseFloat(t.marginRight))}const r=e;if(++this.animate_id,!0===t)e*=this.containerWidth,e=Math.round(e/this.itemWidth)*this.itemWidth;else{if("string"==typeof e){const t="prev"===e;if(e=this.opt.slidesToScroll%1||this.opt.slidesToShow%1?this.getCurrentSlide():isNaN(this.slide)?0:this.slide,t?e-=this.opt.slidesToScroll:e+=this.opt.slidesToScroll,this.opt.rewind){const i=this.ele.scrollLeft;e=t&&!i?this.slides.length:!t&&i+this.containerWidth>=Math.floor(this.trackWidth)?0:e}}e=Math.min(e,this.slides.length),this.slide=e,e=this.itemWidth*e}return this.scrollTo(e,this.opt.duration*Math.abs(this.ele.scrollLeft-e),(function(){this.updateControls(),this.emit("animated",{value:r,type:"string"==typeof r?"arrow":t?"dot":"slide"})})),!1};var s=r.a,l=i(0);i.n(l)()((()=>{const e=document.querySelectorAll(".web-stories-list__carousel"),t=window.webStoriesCarouselSettings.config.isRTL||"rtl"===document.documentElement.getAttribute("dir");e.length&&Array.from(e).forEach((e=>{const i=e.dataset.id,o=t?{prev:`.${i} .glider-next`,next:`.${i} .glider-prev`}:{prev:`.${i} .glider-prev`,next:`.${i} .glider-next`},r=e.classList.contains("circles"),l=window.getComputedStyle(e.querySelector(".web-stories-list__story")),n=parseFloat(l.width)+(parseFloat(l.marginLeft)+parseFloat(l.marginRight));new s(e,r?{slidesToShow:"auto",slidesToScroll:"auto",itemWidth:n,duration:.25,scrollLock:!0,arrows:o}:{slidesToShow:1,slidesToScroll:1,scrollLock:!0,arrows:o,responsive:[{breakpoint:775,settings:{slidesToShow:"auto",slidesToScroll:"auto",itemWidth:n,duration:.25}}]})}))}))}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "../media/com_webstories/js/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["domReady"]; }());
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* @preserve
+    _____ __ _     __                _
+   / ___// /(_)___/ /___  ____      (_)___
+  / (_ // // // _  // -_)/ __/_    / /(_-<
+  \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
+                              |___/
+
+  Version: 1.7.4
+  Author: Nick Piscitelli (pickykneee)
+  Website: https://nickpiscitelli.com
+  Documentation: http://nickpiscitelli.github.io/Glider.js
+  License: MIT License
+  Release Date: October 25th, 2018
+
+*/
+
+/* global define */
+
+(function (factory) {
+   true
+    ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+    : undefined
+})(function () {
+  ('use strict') // eslint-disable-line no-unused-expressions
+
+  /* globals window:true */
+  var _window = typeof window !== 'undefined' ? window : this
+
+  var Glider = (_window.Glider = function (element, settings) {
+    var _ = this
+
+    if (element._glider) return element._glider
+
+    _.ele = element
+    _.ele.classList.add('glider')
+
+    // expose glider object to its DOM element
+    _.ele._glider = _
+
+    // merge user setting with defaults
+    _.opt = Object.assign(
+      {},
+      {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        resizeLock: true,
+        duration: 0.5,
+        // easeInQuad
+        easing: function (x, t, b, c, d) {
+          return c * (t /= d) * t + b
+        }
+      },
+      settings
+    )
+
+    // set defaults
+    _.animate_id = _.page = _.slide = 0
+    _.arrows = {}
+
+    // preserve original options to
+    // extend breakpoint settings
+    _._opt = _.opt
+
+    if (_.opt.skipTrack) {
+      // first and only child is the track
+      _.track = _.ele.children[0]
+    } else {
+      // create track and wrap slides
+      _.track = document.createElement('div')
+      _.ele.appendChild(_.track)
+      while (_.ele.children.length !== 1) {
+        _.track.appendChild(_.ele.children[0])
+      }
+    }
+
+    _.track.classList.add('glider-track')
+
+    // start glider
+    _.init()
+
+    // set events
+    _.resize = _.init.bind(_, true)
+    _.event(_.ele, 'add', {
+      scroll: _.updateControls.bind(_)
+    })
+    _.event(_window, 'add', {
+      resize: _.resize
+    })
+  })
+
+  var gliderPrototype = Glider.prototype
+  gliderPrototype.init = function (refresh, paging) {
+    var _ = this
+
+    var width = 0
+
+    var height = 0
+
+    _.slides = _.track.children;
+
+    [].forEach.call(_.slides, function (_, i) {
+      _.classList.add('glider-slide')
+      _.setAttribute('data-gslide', i)
+    })
+
+    _.containerWidth = _.ele.clientWidth
+
+    var breakpointChanged = _.settingsBreakpoint()
+    if (!paging) paging = breakpointChanged
+
+    if (
+      _.opt.slidesToShow === 'auto' ||
+      typeof _.opt._autoSlide !== 'undefined'
+    ) {
+      var slideCount = _.containerWidth / _.opt.itemWidth
+
+      _.opt._autoSlide = _.opt.slidesToShow = _.opt.exactWidth
+        ? slideCount
+        : Math.max(1, Math.floor(slideCount))
+    }
+    if (_.opt.slidesToScroll === 'auto') {
+      _.opt.slidesToScroll = Math.floor(_.opt.slidesToShow)
+    }
+
+    _.itemWidth = _.opt.exactWidth
+      ? _.opt.itemWidth
+      : _.containerWidth / _.opt.slidesToShow;
+
+    // set slide dimensions
+    [].forEach.call(_.slides, function (__) {
+      __.style.height = 'auto'
+      __.style.width = _.itemWidth + 'px'
+      width += _.itemWidth
+      height = Math.max(__.offsetHeight, height)
+    })
+
+    _.track.style.width = width + 'px'
+    _.trackWidth = width
+    _.isDrag = false
+    _.preventClick = false
+
+    _.opt.resizeLock && _.scrollTo(_.slide * _.itemWidth, 0)
+
+    if (breakpointChanged || paging) {
+      _.bindArrows()
+      _.buildDots()
+      _.bindDrag()
+    }
+
+    _.updateControls()
+
+    _.emit(refresh ? 'refresh' : 'loaded')
+  }
+
+  gliderPrototype.bindDrag = function () {
+    var _ = this
+    _.mouse = _.mouse || _.handleMouse.bind(_)
+
+    var mouseup = function () {
+      _.mouseDown = undefined
+      _.ele.classList.remove('drag')
+      if (_.isDrag) {
+        _.preventClick = true
+      }
+      _.isDrag = false
+    }
+
+    var events = {
+      mouseup: mouseup,
+      mouseleave: mouseup,
+      mousedown: function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+        _.mouseDown = e.clientX
+        _.ele.classList.add('drag')
+      },
+      mousemove: _.mouse,
+      click: function (e) {
+        if (_.preventClick) {
+          e.preventDefault()
+          e.stopPropagation()
+        }
+        _.preventClick = false
+      }
+    }
+
+    _.ele.classList.toggle('draggable', _.opt.draggable === true)
+    _.event(_.ele, 'remove', events)
+    if (_.opt.draggable) _.event(_.ele, 'add', events)
+  }
+
+  gliderPrototype.buildDots = function () {
+    var _ = this
+
+    if (!_.opt.dots) {
+      if (_.dots) _.dots.innerHTML = ''
+      return
+    }
+
+    if (typeof _.opt.dots === 'string') {
+      _.dots = document.querySelector(_.opt.dots)
+    } else _.dots = _.opt.dots
+    if (!_.dots) return
+
+    _.dots.innerHTML = ''
+    _.dots.classList.add('glider-dots')
+
+    for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
+      var dot = document.createElement('button')
+      dot.dataset.index = i
+      dot.setAttribute('aria-label', 'Page ' + (i + 1))
+      dot.setAttribute('role', 'tab')
+      dot.className = 'glider-dot ' + (i ? '' : 'active')
+      _.event(dot, 'add', {
+        click: _.scrollItem.bind(_, i, true)
+      })
+      _.dots.appendChild(dot)
+    }
+  }
+
+  gliderPrototype.bindArrows = function () {
+    var _ = this
+    if (!_.opt.arrows) {
+      Object.keys(_.arrows).forEach(function (direction) {
+        var element = _.arrows[direction]
+        _.event(element, 'remove', { click: element._func })
+      })
+      return
+    }
+    ['prev', 'next'].forEach(function (direction) {
+      var arrow = _.opt.arrows[direction]
+      if (arrow) {
+        if (typeof arrow === 'string') arrow = document.querySelector(arrow)
+        if (arrow) {
+          arrow._func = arrow._func || _.scrollItem.bind(_, direction)
+          _.event(arrow, 'remove', {
+            click: arrow._func
+          })
+          _.event(arrow, 'add', {
+            click: arrow._func
+          })
+          _.arrows[direction] = arrow
+        }
+      }
+    })
+  }
+
+  gliderPrototype.updateControls = function (event) {
+    var _ = this
+
+    if (event && !_.opt.scrollPropagate) {
+      event.stopPropagation()
+    }
+
+    var disableArrows = _.containerWidth >= _.trackWidth
+
+    if (!_.opt.rewind) {
+      if (_.arrows.prev) {
+        _.arrows.prev.classList.toggle(
+          'disabled',
+          _.ele.scrollLeft <= 0 || disableArrows
+        )
+        _.arrows.prev.classList.contains('disabled')
+          ? _.arrows.prev.setAttribute('aria-disabled', true)
+          : _.arrows.prev.setAttribute('aria-disabled', false)
+      }
+      if (_.arrows.next) {
+        _.arrows.next.classList.toggle(
+          'disabled',
+          Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
+            Math.floor(_.trackWidth) || disableArrows
+        )
+        _.arrows.next.classList.contains('disabled')
+          ? _.arrows.next.setAttribute('aria-disabled', true)
+          : _.arrows.next.setAttribute('aria-disabled', false)
+      }
+    }
+
+    _.slide = Math.round(_.ele.scrollLeft / _.itemWidth)
+    _.page = Math.round(_.ele.scrollLeft / _.containerWidth)
+
+    var middle = _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2)
+
+    var extraMiddle = Math.floor(_.opt.slidesToShow) % 2 ? 0 : middle + 1
+    if (Math.floor(_.opt.slidesToShow) === 1) {
+      extraMiddle = 0
+    }
+
+    // the last page may be less than one half of a normal page width so
+    // the page is rounded down. when at the end, force the page to turn
+    if (_.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
+      _.page = _.dots ? _.dots.children.length - 1 : 0
+    }
+
+    [].forEach.call(_.slides, function (slide, index) {
+      var slideClasses = slide.classList
+
+      var wasVisible = slideClasses.contains('visible')
+
+      var start = _.ele.scrollLeft
+
+      var end = _.ele.scrollLeft + _.containerWidth
+
+      var itemStart = _.itemWidth * index
+
+      var itemEnd = itemStart + _.itemWidth;
+
+      [].forEach.call(slideClasses, function (className) {
+        /^left|right/.test(className) && slideClasses.remove(className)
+      })
+      slideClasses.toggle('active', _.slide === index)
+      if (middle === index || (extraMiddle && extraMiddle === index)) {
+        slideClasses.add('center')
+      } else {
+        slideClasses.remove('center')
+        slideClasses.add(
+          [
+            index < middle ? 'left' : 'right',
+            Math.abs(index - (index < middle ? middle : extraMiddle || middle))
+          ].join('-')
+        )
+      }
+
+      var isVisible =
+        Math.ceil(itemStart) >= Math.floor(start) &&
+        Math.floor(itemEnd) <= Math.ceil(end)
+      slideClasses.toggle('visible', isVisible)
+      if (isVisible !== wasVisible) {
+        _.emit('slide-' + (isVisible ? 'visible' : 'hidden'), {
+          slide: index
+        })
+      }
+    })
+    if (_.dots) {
+      [].forEach.call(_.dots.children, function (dot, index) {
+        dot.classList.toggle('active', _.page === index)
+      })
+    }
+
+    if (event && _.opt.scrollLock) {
+      clearTimeout(_.scrollLock)
+      _.scrollLock = setTimeout(function () {
+        clearTimeout(_.scrollLock)
+        // dont attempt to scroll less than a pixel fraction - causes looping
+        if (Math.abs(_.ele.scrollLeft / _.itemWidth - _.slide) > 0.02) {
+          if (!_.mouseDown) {
+            // Only scroll if not at the end (#94)
+            if (_.trackWidth > _.containerWidth + _.ele.scrollLeft) {
+              _.scrollItem(_.getCurrentSlide())
+            }
+          }
+        }
+      }, _.opt.scrollLockDelay || 250)
+    }
+  }
+
+  gliderPrototype.getCurrentSlide = function () {
+    var _ = this
+    return _.round(_.ele.scrollLeft / _.itemWidth)
+  }
+
+  gliderPrototype.scrollItem = function (slide, dot, e) {
+    if (e) e.preventDefault()
+
+    var _ = this
+
+    var originalSlide = slide
+    ++_.animate_id
+
+    if (dot === true) {
+      slide = slide * _.containerWidth
+      slide = Math.round(slide / _.itemWidth) * _.itemWidth
+    } else {
+      if (typeof slide === 'string') {
+        var backwards = slide === 'prev'
+
+        // use precise location if fractional slides are on
+        if (_.opt.slidesToScroll % 1 || _.opt.slidesToShow % 1) {
+          slide = _.getCurrentSlide()
+        } else {
+          slide = _.slide
+        }
+
+        if (backwards) slide -= _.opt.slidesToScroll
+        else slide += _.opt.slidesToScroll
+
+        if (_.opt.rewind) {
+          var scrollLeft = _.ele.scrollLeft
+          slide =
+            backwards && !scrollLeft
+              ? _.slides.length
+              : !backwards &&
+                scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)
+                ? 0
+                : slide
+        }
+      }
+
+      slide = Math.max(Math.min(slide, _.slides.length), 0)
+
+      _.slide = slide
+      slide = _.itemWidth * slide
+    }
+
+    _.scrollTo(
+      slide,
+      _.opt.duration * Math.abs(_.ele.scrollLeft - slide),
+      function () {
+        _.updateControls()
+        _.emit('animated', {
+          value: originalSlide,
+          type:
+            typeof originalSlide === 'string' ? 'arrow' : dot ? 'dot' : 'slide'
+        })
+      }
+    )
+
+    return false
+  }
+
+  gliderPrototype.settingsBreakpoint = function () {
+    var _ = this
+
+    var resp = _._opt.responsive
+
+    if (resp) {
+      // Sort the breakpoints in mobile first order
+      resp.sort(function (a, b) {
+        return b.breakpoint - a.breakpoint
+      })
+
+      for (var i = 0; i < resp.length; ++i) {
+        var size = resp[i]
+        if (_window.innerWidth >= size.breakpoint) {
+          if (_.breakpoint !== size.breakpoint) {
+            _.opt = Object.assign({}, _._opt, size.settings)
+            _.breakpoint = size.breakpoint
+            return true
+          }
+          return false
+        }
+      }
+    }
+    // set back to defaults in case they were overriden
+    var breakpointChanged = _.breakpoint !== 0
+    _.opt = Object.assign({}, _._opt)
+    _.breakpoint = 0
+    return breakpointChanged
+  }
+
+  gliderPrototype.scrollTo = function (scrollTarget, scrollDuration, callback) {
+    var _ = this
+
+    var start = new Date().getTime()
+
+    var animateIndex = _.animate_id
+
+    var animate = function () {
+      var now = new Date().getTime() - start
+      _.ele.scrollLeft =
+        _.ele.scrollLeft +
+        (scrollTarget - _.ele.scrollLeft) *
+          _.opt.easing(0, now, 0, 1, scrollDuration)
+      if (now < scrollDuration && animateIndex === _.animate_id) {
+        _window.requestAnimationFrame(animate)
+      } else {
+        _.ele.scrollLeft = scrollTarget
+        callback && callback.call(_)
+      }
+    }
+
+    _window.requestAnimationFrame(animate)
+  }
+
+  gliderPrototype.removeItem = function (index) {
+    var _ = this
+
+    if (_.slides.length) {
+      _.track.removeChild(_.slides[index])
+      _.refresh(true)
+      _.emit('remove')
+    }
+  }
+
+  gliderPrototype.addItem = function (ele) {
+    var _ = this
+
+    _.track.appendChild(ele)
+    _.refresh(true)
+    _.emit('add')
+  }
+
+  gliderPrototype.handleMouse = function (e) {
+    var _ = this
+    if (_.mouseDown) {
+      _.isDrag = true
+      _.ele.scrollLeft +=
+        (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
+      _.mouseDown = e.clientX
+    }
+  }
+
+  // used to round to the nearest 0.XX fraction
+  gliderPrototype.round = function (double) {
+    var _ = this
+    var step = _.opt.slidesToScroll % 1 || 1
+    var inv = 1.0 / step
+    return Math.round(double * inv) / inv
+  }
+
+  gliderPrototype.refresh = function (paging) {
+    var _ = this
+    _.init(true, paging)
+  }
+
+  gliderPrototype.setOption = function (opt, global) {
+    var _ = this
+
+    if (_.breakpoint && !global) {
+      _._opt.responsive.forEach(function (v) {
+        if (v.breakpoint === _.breakpoint) {
+          v.settings = Object.assign({}, v.settings, opt)
+        }
+      })
+    } else {
+      _._opt = Object.assign({}, _._opt, opt)
+    }
+
+    _.breakpoint = 0
+    _.settingsBreakpoint()
+  }
+
+  gliderPrototype.destroy = function () {
+    var _ = this
+
+    var replace = _.ele.cloneNode(true)
+
+    var clear = function (ele) {
+      ele.removeAttribute('style');
+      [].forEach.call(ele.classList, function (className) {
+        /^glider/.test(className) && ele.classList.remove(className)
+      })
+    }
+    // remove track
+    replace.children[0].outerHTML = replace.children[0].innerHTML
+    clear(replace);
+    [].forEach.call(replace.getElementsByTagName('*'), clear)
+    _.ele.parentNode.replaceChild(replace, _.ele)
+    _.event(_window, 'remove', {
+      resize: _.resize
+    })
+    _.emit('destroy')
+  }
+
+  gliderPrototype.emit = function (name, arg) {
+    var _ = this
+
+    var e = new _window.CustomEvent('glider-' + name, {
+      bubbles: !_.opt.eventPropagate,
+      detail: arg
+    })
+    _.ele.dispatchEvent(e)
+  }
+
+  gliderPrototype.event = function (ele, type, args) {
+    var eventHandler = ele[type + 'EventListener'].bind(ele)
+    Object.keys(args).forEach(function (k) {
+      eventHandler(k, args[k])
+    })
+  }
+
+  return Glider
+})
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/glider-js/glider.js
+var glider = __webpack_require__(1);
+var glider_default = /*#__PURE__*/__webpack_require__.n(glider);
+
+// CONCATENATED MODULE: ./node_modules/glider-js/glider.css
+// extracted by mini-css-extract-plugin
+
+// CONCATENATED MODULE: ./packages/glider/src/index.js
+/*
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * Override to add basic support for the nav arrows for RTL
+ *
+ * Glider-JS doesn't support RTL at the moment, this is to add basic
+ * functioning support for the nav arrows as otherwise the nav arrows
+ * becomes useless on RTL sites.
+ *
+ * @todo Maybe replace glider-js with other lightweight lib which has RTL support. or Replace it with 'amp-carousel' once we have the support.
+ * @param {Object|string} slide Slide arrow string based on action.
+ * @param {boolean}       dot   Is dot navigation action.
+ * @param {Object}        e     Event object.
+ * @return {boolean} Navigation done.
+ */
+
+glider_default.a.prototype.scrollItem = function (slide, dot, e) {
+  var _dot;
+
+  // glider-js doesn't seem to pass right amount of arguments.
+  if (e === undefined && (_dot = dot) !== null && _dot !== void 0 && _dot.target) {
+    e = dot;
+    dot = false;
+  }
+
+  if (e === undefined) {
+    // Somehow we ended up triggering this function twice. Abort to prevent scrolling back and forth.
+    return false;
+  }
+
+  if (e) {
+    e.preventDefault();
+  } // Somehow slidesToScroll and slidesToShow can end up being 0.
+
+
+  this.opt.slidesToScroll = Math.max(1, this.opt.slidesToScroll);
+  this.opt.slidesToShow = Math.max(1, this.opt.slidesToShow); // This will also cause this.itemWidth to be Infinity because division by zero returns Infinity in JS.
+  // Update this.itemWidth with actual value in this case.
+
+  if (this.itemWidth === Infinity) {
+    // It's a sibling.
+    const carouselWrapper = e.target.parentElement.querySelector('.web-stories-list__carousel');
+    const itemStyle = window.getComputedStyle(carouselWrapper.querySelector('.web-stories-list__story'));
+    this.itemWidth = parseFloat(itemStyle.width) + (parseFloat(itemStyle.marginLeft) + parseFloat(itemStyle.marginRight));
+  }
+
+  const originalSlide = slide;
+  ++this.animate_id;
+
+  if (dot === true) {
+    slide = slide * this.containerWidth;
+    slide = Math.round(slide / this.itemWidth) * this.itemWidth;
+  } else {
+    if (typeof slide === 'string') {
+      const backwards = slide === 'prev'; // use precise location if fractional slides are on
+
+      if (this.opt.slidesToScroll % 1 || this.opt.slidesToShow % 1) {
+        slide = this.getCurrentSlide();
+      } else {
+        slide = !isNaN(this.slide) ? this.slide : 0;
+      }
+
+      if (backwards) {
+        slide -= this.opt.slidesToScroll;
+      } else {
+        slide += this.opt.slidesToScroll;
+      }
+
+      if (this.opt.rewind) {
+        const scrollLeft = this.ele.scrollLeft;
+        slide = backwards && !scrollLeft ? this.slides.length : !backwards && scrollLeft + this.containerWidth >= Math.floor(this.trackWidth) ? 0 : slide;
+      }
+    }
+
+    slide = Math.min(slide, this.slides.length);
+    this.slide = slide;
+    slide = this.itemWidth * slide;
+  }
+
+  this.scrollTo(slide, this.opt.duration * Math.abs(this.ele.scrollLeft - slide), function () {
+    this.updateControls();
+    this.emit('animated', {
+      value: originalSlide,
+      type: typeof originalSlide === 'string' ? 'arrow' : dot ? 'dot' : 'slide'
+    });
+  });
+  return false;
+};
+
+/* harmony default export */ var src = (glider_default.a);
+// EXTERNAL MODULE: external ["wp","domReady"]
+var external_wp_domReady_ = __webpack_require__(0);
+var external_wp_domReady_default = /*#__PURE__*/__webpack_require__.n(external_wp_domReady_);
+
+// CONCATENATED MODULE: ./packages/stories-carousel/src/index.js
+/*
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+external_wp_domReady_default()(() => {
+  const carouselWrappers = document.querySelectorAll('.web-stories-list__carousel');
+  const isRTL = window.webStoriesCarouselSettings.config.isRTL || 'rtl' === document.documentElement.getAttribute('dir');
+
+  if (!carouselWrappers.length) {
+    return;
+  }
+
+  Array.from(carouselWrappers).forEach(carouselWrapper => {
+    // For multiple instance of the glider we need to link nav arrows appropriately.
+    const carouselId = carouselWrapper.dataset.id;
+    const navArrows = !isRTL ? {
+      prev: `.${carouselId} .glider-prev`,
+      next: `.${carouselId} .glider-next`
+    } : {
+      prev: `.${carouselId} .glider-next`,
+      next: `.${carouselId} .glider-prev`
+    };
+    const isCircles = carouselWrapper.classList.contains('circles');
+    const itemStyle = window.getComputedStyle(carouselWrapper.querySelector('.web-stories-list__story'));
+    const itemWidth = parseFloat(itemStyle.width) + (parseFloat(itemStyle.marginLeft) + parseFloat(itemStyle.marginRight)); // For circles view we would want to keep it auto.
+
+    if (isCircles) {
+      /* eslint-disable-next-line no-new -- we do not store the object as no further computation required with the built object. */
+      new src(carouselWrapper, {
+        // Set to `auto` and provide item width to adjust to viewport
+        slidesToShow: 'auto',
+        slidesToScroll: 'auto',
+        itemWidth,
+        duration: 0.25,
+        scrollLock: true,
+        arrows: navArrows
+      });
+    } else {
+      // For Box Carousel we are showing single slide below tablets viewport.
+
+      /* eslint-disable-next-line no-new -- we do not store the object as no further computation required with the built object. */
+      new src(carouselWrapper, {
+        // Mobile-first defaults
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        scrollLock: true,
+        arrows: navArrows,
+        responsive: [{
+          // screens greater than >= 775px
+          breakpoint: 775,
+          settings: {
+            // Set to `auto` and provide item width to adjust to viewport
+            slidesToShow: 'auto',
+            slidesToScroll: 'auto',
+            itemWidth,
+            duration: 0.25
+          }
+        }]
+      });
+    }
+  });
+});
+
+/***/ })
+/******/ ]);

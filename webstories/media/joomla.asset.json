@@ -80,6 +80,11 @@
         "attributes": {
           "defer": true
         }
+      },
+      {
+        "name": "com_webstories.activation-notice",
+        "type": "script",
+        "uri": "com_webstories/web-stories-activation-notice.js"
       }
     ]
   }
