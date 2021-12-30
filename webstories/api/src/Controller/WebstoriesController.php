@@ -81,9 +81,9 @@ class WebstoriesController extends ApiController
     if (!file_exists('../images/webstories/videos')) {
       mkdir('../images/webstories/videos', 0777, true);
     }
-    $data = (array)  $this->input->files->get('image');
+    $data = (array)  $this->input->files->get('media');
+    $data_poster_file = (array)  $this->input->files->get('poster_image');
     $file_data = file_get_contents($data['tmp_name']);
-    $image = base64_encode($file_data);
     $extension = pathinfo($data['name'], PATHINFO_EXTENSION);
     $images = ['png', 'jpg', 'jpeg', 'webp'];
     if (in_array($extension, $images)) {
@@ -93,8 +93,11 @@ class WebstoriesController extends ApiController
     }
     $videos = ['mov', 'mp4', 'webm'];
     if (in_array($extension, $videos)) {
+      $path_parts = pathinfo($data['name']);
       $result = file_put_contents('../images/webstories/videos/' . basename($data['name']), $file_data);
-      echo json_encode($result);
+      $result = file_put_contents('../images/webstories/videos/'. $path_parts['filename'] . '.jpeg', file_get_contents($data_poster_file['tmp_name']));
+      
+      echo json_encode($data_poster_file['tmp_name']);
       exit;
     }
   }

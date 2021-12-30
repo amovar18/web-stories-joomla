@@ -53,8 +53,8 @@ echo '<script type="text/javascript">
     var webStoriesEditorSettings = {"config":{
         "api":{
             "saveLink":"../api/index.php/v1/webstories/update",
-            "getMedia":"../api/index.php/v1/webstories/getimages",
-            "saveMedia":"../api/index.php/v1/webstories/saveimage",
+            "getMedia":"../api/index.php/v1/webstories/",
+            "saveMedia":"../api/index.php/v1/webstories/save_file",
             "getStoryById":"../api/index.php/v1/webstories/getSingle",
         },
         "storyId": '.$id.',
