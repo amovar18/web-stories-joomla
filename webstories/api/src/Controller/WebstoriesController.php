@@ -277,7 +277,7 @@ class WebstoriesController extends ApiController
           'source_url' => $src,
         ],
       ],
-      'local' => true,
+      'local' => false,
       'isPlaceholder' => false,
       'isOptimized' => false,
       'isMuted' => false,
