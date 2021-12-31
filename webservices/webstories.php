@@ -95,6 +95,11 @@ class PlgWebservicesWebstories extends CMSPlugin
             'webstories.getAllAuthors',
             ['component' => 'com_webstories'],
         );
+        $router->createCRUDRoutes(
+            'v1/webstories/deleteMedia',
+            'webstories.deleteMedia',
+            ['component' => 'com_webstories'],
+        );
         
     }
 }

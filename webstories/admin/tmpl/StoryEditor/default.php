@@ -56,6 +56,8 @@ echo '<script type="text/javascript">
             "getMedia":"../api/index.php/v1/webstories/",
             "saveMedia":"../api/index.php/v1/webstories/save_file",
             "getStoryById":"../api/index.php/v1/webstories/getSingle",
+            "deleteMedia":"../api/index.php/v1/webstories/deleteMedia",
+            "getUsers":"../api/index.php/v1/webstories/users",
         },
         "storyId": '.$id.',
         "allowedAudioTypes":["aac","m4a","m4b","mp3","oga","ogg","wav"],

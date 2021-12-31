@@ -24,9 +24,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 namespace Google\Component\WebStories\Api\Controller;
-
+require_once('getid3/getid3.php');
+error_reporting(1);
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
@@ -87,8 +87,9 @@ class WebstoriesController extends ApiController
     $extension = pathinfo($data['name'], PATHINFO_EXTENSION);
     $images = ['png', 'jpg', 'jpeg', 'webp'];
     if (in_array($extension, $images)) {
+      $path_parts = pathinfo($data['name']);
       $result = file_put_contents('../images/webstories/images/' . basename($data['name']), $file_data);
-      echo json_encode($result);
+      echo json_encode($result ? $this->getImageData($path_parts['filename'],'../images/webstories/images/' . basename($data['name']),getimagesize($data['name'])[0], getimagesize($data['name'])[1],'image/'.$extension,basename($data['name']),$extension) : false);
       exit;
     }
     $videos = ['mov', 'mp4', 'webm'];
@@ -96,8 +97,7 @@ class WebstoriesController extends ApiController
       $path_parts = pathinfo($data['name']);
       $result = file_put_contents('../images/webstories/videos/' . basename($data['name']), $file_data);
       $result = file_put_contents('../images/webstories/videos/'. $path_parts['filename'] . '.jpeg', file_get_contents($data_poster_file['tmp_name']));
-      
-      echo json_encode($data_poster_file['tmp_name']);
+      echo json_encode($result ? $this->getVideoData('video/'.$extension, '../images/webstories/videos/' . basename($data['name']), basename($data['name']), $path_parts['filename'], '../images/webstories/videos/'. $path_parts['filename'] . '.jpeg') : false);
       exit;
     }
   }
@@ -117,7 +117,7 @@ class WebstoriesController extends ApiController
     foreach ($imagetype as $filetype) {
       $mimetype = 'image/' . $filetype;
       foreach (glob(realpath("../images/webstories/images") . "/*." . $filetype) as $filename) {
-        array_push($response, $this->getImageData((explode(',', basename($filename))[0]), $url . basename($filename), getimagesize($filename)[0], getimagesize($filename)[1], $mimetype, $count, $filetype));
+        array_push($response, $this->getImageData((explode(',', basename($filename))[0]), $url . basename($filename), getimagesize($filename)[0], getimagesize($filename)[1], $mimetype, basename($filename), $filetype));
         $count++;
       }
     }
@@ -143,7 +143,7 @@ class WebstoriesController extends ApiController
       $mimetype = 'video/' . $filetype;
       foreach (glob(realpath("../images/webstories/videos") . "/*." . $filetype) as $filename) {
         $path_parts = pathinfo($url . 'videos/' . basename($filename));
-        array_push($response, $this->getVideoData($mimetype, $url . basename($filename), $path_parts['filename'], (explode(',', basename($filename))[0]), $url . $path_parts['filename'] . '.jpeg'));
+        array_push($response, $this->getVideoData($mimetype, $url . basename($filename), basename($filename), $path_parts['filename'], $url . $path_parts['filename'] . '.jpeg'));
         $count++;
       }
     }
@@ -170,7 +170,7 @@ class WebstoriesController extends ApiController
       $mimetype = 'video/' . $filetype;
       foreach (glob(realpath("../images/webstories/videos") . "/*." . $filetype) as $filename) {
         $path_parts = pathinfo($url . 'videos/' . basename($filename));
-        array_push($response, $this->getVideoData($mimetype, $url . 'videos/' . basename($filename), $path_parts['filename'], (explode(',', basename($filename))[0]), $url . 'videos/' . $path_parts['filename'] . '.jpeg'));
+        array_push($response, $this->getVideoData($mimetype, $url .'videos/'. basename($filename), basename($filename), $path_parts['filename'], $url. 'videos/' . $path_parts['filename'] . '.jpeg'));
         $count++;
       }
     }
@@ -178,7 +178,7 @@ class WebstoriesController extends ApiController
       $mimetype = 'image/' . $filetype;
       foreach (glob(realpath("../images/webstories/images") . "/*." . $filetype) as $filename) {
         $path_parts = pathinfo($url . 'images/' . basename($filename));
-        array_push($response, $this->getImageData((explode(',', basename($filename))[0]), $url . 'images/' . basename($filename), getimagesize($filename)[0], getimagesize($filename)[1], $mimetype, $path_parts['filename'], $filetype));
+        array_push($response, $this->getImageData((explode(',', basename($filename))[0]), $url . 'images/' . basename($filename), getimagesize($filename)[0], getimagesize($filename)[1], $mimetype, basename($filename), $filetype));
         $count++;
       }
     }
@@ -286,18 +286,26 @@ class WebstoriesController extends ApiController
   }
   public function getVideoData($mimeType, $src, $id, $title, $poster)
   {
+    $file_info=[];
+    if($src){
+      $filename = tempnam('/tmp','getid3');
+      if (file_put_contents($filename, file_get_contents($src))) {
+        $getID3 = new \getID3();
+        $file_info = $getID3->analyze($filename);
+        unlink($filename);
+      }
+    }
     return [
       'type' => 'video',
       'mimeType' => $mimeType,
       'creationDate' => '2021-10-29T11:56:33',
       'src' => $src,
-      'width' => 100,
-      'height' => 200,
+      'width' => $file_info['video']['resolution_x'],
+      'height' => $file_info['video']['resolution_y'],
       'poster' =>  $poster,
-      'posterId' => 57,
       'id' => $id,
-      'length' => 10,
-      'lengthFormatted' => '0:10',
+      'length' => round($file_info['playtime_seconds']),
+      'lengthFormatted' => $file_info['playtime_string'],
       'alt' => $title,
       'sizes' => [],
       'local' => false,
@@ -308,6 +316,7 @@ class WebstoriesController extends ApiController
       'trimData' => [
         'original' => 0,
       ],
+      'data'=>$file_info,
     ];
   }
   public function rename()
@@ -576,5 +585,25 @@ class WebstoriesController extends ApiController
     }
     echo json_encode($users);
     exit;
+  }
+  public function deleteMedia(){
+    $imagetype = ['png', 'jpg', 'jpeg', 'webp'];
+    $videotype = ['mov', 'mp4', 'webm'];
+    $data = (array)  json_decode($this->input->json->getRaw(), true);
+    $filename = $data['id'];
+    $file_extension = explode('.', $filename);
+    if (in_array($file_extension[1], $imagetype)) {
+      $result = unlink('../images/webstories/images/' . $filename);
+      echo json_encode($result);
+      exit;
+    }
+    if (in_array($file_extension[1], $videotype)) {
+      $result = unlink('../images/webstories/videos/' . $filename);
+      $result = unlink('../images/webstories/videos/' . $file_extension[0].'.jpeg');
+      echo json_encode($filename);
+      exit;
+    }
+    echo json_encode($data);
+      exit;
   }
 }
