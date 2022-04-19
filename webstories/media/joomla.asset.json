@@ -6,37 +6,9 @@
     "license": "GPL-2.0-or-later",
     "assets": [
       {
-        "name": "com_webstories.joomla-story-editor",
-        "type": "style",
-        "uri": "com_webstories/joomla-story-editor.css"
-      },
-      {
-        "name": "com_webstories.joomla-story-editor-rtl",
-        "type": "style",
-        "uri": "com_webstories/joomla-story-editor-rtl.css"
-      },
-      {
-        "name": "com_webstories.joomla-props-to-save",
-        "type": "style",
-        "uri": "com_webstories/vendors-chunk-getStoryPropsToSave-joomla-story-editor.css"
-      },
-      {
-        "name": "com_webstories.joomla-props-to-save-rtl",
-        "type": "style",
-        "uri": "com_webstories/vendors-chunk-getStoryPropsToSave-joomla-story-editor-rtl.css"
-      },
-      {
-        "name": "com_webstories.story-editor-js",
+        "name": "com_webstories.story-editor",
         "type": "script",
         "uri": "com_webstories/joomla-story-editor.js",
-        "attributes": {
-          "defer": true
-        }
-      },
-      {
-        "name": "com_webstories.vendor-shared-js",
-        "type": "script",
-        "uri": "com_webstories/vendors-joomla-dashboard-joomla-story-editor.js",
         "attributes": {
           "defer": true
         }
@@ -50,17 +22,9 @@
         }
       },
       {
-        "name": "com_webstories.vendors-dashboard",
+        "name": "com_webstories.react-calendar",
         "type": "script",
-        "uri": "com_webstories/vendors-joomla-dashboard.js",
-        "attributes": {
-          "defer": true
-        }
-      },
-      {
-        "name": "com_webstories.resize-observer",
-        "type": "script",
-        "uri": "com_webstories/vendors-chunk-resize-observer-polyfill-joomla-story-editor.js",
+        "uri": "com_webstories/chunk-react-calendar.js",
         "attributes": {
           "defer": true
         }
@@ -68,23 +32,18 @@
       {
         "name": "com_webstories.get-story-props-to-save",
         "type": "script",
-        "uri": "com_webstories/vendors-chunk-getStoryPropsToSave-joomla-story-editor.js",
+        "uri": "com_webstories/chunk-getStoryPropsToSave.js",
         "attributes": {
           "defer": true
         }
       },
       {
-        "name": "com_webstories.get-story-props-to-save-shared",
+        "name": "com_webstories.get-fonts",
         "type": "script",
-        "uri": "com_webstories/vendors-chunk-getStoryPropsToSave-chunk-resize-observer-polyfill-joomla-story-editor.js",
+        "uri": "com_webstories/chunk-fonts.js",
         "attributes": {
           "defer": true
         }
-      },
-      {
-        "name": "com_webstories.activation-notice",
-        "type": "script",
-        "uri": "com_webstories/web-stories-activation-notice.js"
       }
     ]
   }

@@ -46,12 +46,12 @@ class WebstoriesController extends ApiController
     // Create a new query object.
     $query = $db->getQuery(true);
     $fields = array();
-    $json = $db->quote(json_encode($data['post_content_filtered']));
+    $json = $db->quote(json_encode($data['postContentFiltered']));
     // Insert columns.
 
-    $query = "UPDATE `#__webstories` SET `markup`=" . json_encode($data['markup']) . ",`title`='" . $data['title'] . "',`modified_date`='" . $data['modified_date'] . "',
-        `created_by`='" . $data['created_by'] . "',`published`='" . $data['published'] . "', `post_content_filtered`=" . $json . ", 
-        `story_description`='" . $data['excerpt'] . "',featured_media_url='" . $data['featured_media'] . "'WHERE id=" . $data['id'];
+    $query = "UPDATE `#__webstories` SET `markup`=" . json_encode($data['markup']) . ",`title`='" . $data['title'] . "',`modified_date`='" . $data['modifiedDate'] . "',
+        `created_by`='" . $data['createdBy'] . "',`published`='" . $data['published'] . "', `post_content_filtered`=" . $json . ", 
+        `story_description`='" . $data['excerpt'] . "',featured_media_url='" . $data['featuredMedia'] . "'WHERE id=" . $data['id'];
 
 
     // // Set the query using our newly populated query object and execute it.
@@ -67,7 +67,7 @@ class WebstoriesController extends ApiController
         'edit_link' => '/' . $parts[1] . '/administrator/index.php?option=com_webstories&view=storyeditor&id=' . $data['id'],
         'embed_post_link' => '',
         'featured_media' => [
-          'url' => $data['featured_media'],
+          'url' => $data['featuredMedia'],
         ],
       ]
     );
@@ -368,8 +368,10 @@ class WebstoriesController extends ApiController
 
     $data = (array)  json_decode($this->input->json->getRaw(), true);
     $story_id = $data['id'];
+
     $db = Factory::getDbo();
     $user = Factory::getUser();
+    
     $query = $db->getQuery(true);
     $query
       ->select($db->quoteName(array('a.id', 'a.markup', 'a.post_date', 'a.title', 'a.modified_date', 'a.created_by', 'a.published', 'a.post_content_filtered', 'a.story_description', 'b.username')))
@@ -377,10 +379,14 @@ class WebstoriesController extends ApiController
       ->join('INNER', $db->quoteName('#__users', 'b') . ' ON ' . $db->quoteName('a.created_by') . ' = ' . $db->quoteName('b.id'))
       ->where($db->quoteName('a.id') . '=' . $story_id);
     $db->setQuery($query);
+    
     $item = $db->loadAssoc();
+    
     $story_data = !empty($item['post_content_filtered']) ? json_decode($item['post_content_filtered']) : [];
     // Insert duplicate story into table.
+    
     $query = "insert into #__webstories (markup,post_content_filtered,published,title, created_by) values (" . json_encode($item['markup']) . "," . json_encode($item['post_content_filtered']) . ",0,'" . $item['title'] . "(Copy)','" . $user->id . "')";
+    
     $db->setQuery($query);
     $db->execute();
     $single_story = array(

@@ -17,15 +17,10 @@ use Joomla\CMS\HTML\HTMLHelper;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $app = Factory::getApplication();
 
-$wa->useStyle('com_webstories.joomla-props-to-save');
-$wa->useStyle('com_webstories.joomla-props-to-save-rtl');
-$wa->useStyle('com_webstories.joomla-story-editor-rtl');
-$wa->useStyle('com_webstories.joomla-story-editor');
-$wa->useScript('com_webstories.get-story-props-to-save-shared');
 $wa->useScript('com_webstories.get-story-props-to-save');
-$wa->useScript('com_webstories.story-editor-js');
-$wa->useScript('com_webstories.vendor-shared-js');
-$wa->useScript('com_webstories.resize-observer');
+$wa->useScript('com_webstories.story-editor');
+$wa->useScript('com_webstories.react-calendar');
+$wa->useScript('com_webstories.chunk-fonts');
 
 $id = $_GET['id'];
 $db = Factory::getDbo();

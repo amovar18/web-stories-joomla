@@ -16,17 +16,10 @@ use Joomla\CMS\WebAsset\WebAssetManager;
 
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $app = Factory::getApplication();
-$wa->useStyle('com_webstories.joomla-props-to-save');
-$wa->useStyle('com_webstories.joomla-props-to-save-rtl');
-$wa->useStyle('com_webstories.joomla-story-editor-rtl');
-$wa->useStyle('com_webstories.joomla-story-editor');
 
 $wa->useScript('com_webstories.dashboard');
-$wa->useScript('com_webstories.vendors-dashboard');
-$wa->useScript('com_webstories.resize-observer');
-$wa->useScript('com_webstories.vendor-shared-js');
-$wa->useScript('com_webstories.get-story-props-to-save-shared');
 $wa->useScript('com_webstories.get-story-props-to-save');
+
 $db = Factory::getDbo();
 $user = Factory::getUser();
 $query = $db->getQuery(true)
