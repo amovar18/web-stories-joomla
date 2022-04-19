@@ -29,7 +29,6 @@
         </files>
     </api>
     <media folder="media" destination="com_webstories">
-        <folder>css</folder>
         <folder>js</folder>
         <filename>joomla.asset.json</filename>
     </media>

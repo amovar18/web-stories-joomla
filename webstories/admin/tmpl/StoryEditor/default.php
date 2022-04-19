@@ -17,10 +17,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $app = Factory::getApplication();
 
-$wa->useScript('com_webstories.get-story-props-to-save');
+
 $wa->useScript('com_webstories.story-editor');
-$wa->useScript('com_webstories.react-calendar');
-$wa->useScript('com_webstories.chunk-fonts');
 
 $id = $_GET['id'];
 $db = Factory::getDbo();

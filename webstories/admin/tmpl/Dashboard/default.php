@@ -17,8 +17,8 @@ use Joomla\CMS\WebAsset\WebAssetManager;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $app = Factory::getApplication();
 
+
 $wa->useScript('com_webstories.dashboard');
-$wa->useScript('com_webstories.get-story-props-to-save');
 
 $db = Factory::getDbo();
 $user = Factory::getUser();
